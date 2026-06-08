@@ -1,0 +1,77 @@
+Contas:
+esqueci do caso de ser igual deveria ser >= e não >
+
+Leilão:
+Falta de atenção
+l_lance_at.nome = nome_at;
+l_lance_at.valor = valor_at;
+quando usa struct, se coloca .nome_variavel
+esqueci o lances.push_back(l_lance_at); no main
+
+lances.end - não funciona, teria que ser com lances.back, ou lances.size() - 1 - prefiro a ultima
+
+ideia que eu pensei depois ta certa sem vetor nem nada
+string vencedor;
+int maior = -1;
+
+for(...)
+{
+    cin >> nome >> valor;
+
+    if(valor > maior)
+    {
+        maior = valor;
+        vencedor = nome;
+    }
+}
+
+Estoque:
+void vender_p(int (&l)[500][500], int i, int j) - versão certa
+
+melhor sem função mesmo
+if(mat[i][j] > 0)
+{
+    mat[i][j]--;
+    vendas++;
+}
+
+Toupeira:
+
+Tuneis são bidimensionais então deveria ser
+mat[i_at][j_at] = 1;
+e mat[j_at][i_at] = 1;
+
+
+O que vale a pena variar nas submissões?
+
+Vale a pena testar:
+
+algoritmo diferente;
+estrutura diferente;
+tratamento diferente dos casos.
+
+Não vale muito a pena gastar submissões com:
+
+com endl;
+sem endl;
+com função;
+sem função;
+com vetor;
+sem vetor (quando a lógica é idêntica).
+
+Porque se houver um bug lógico, todas vão falhar exatamente nos mesmos testes.
+
+Aliás, para a Fase 1 da OBI, eu costumo recomendar:
+
+resolver todas as questões;
+testar os exemplos;
+procurar bugs de >= vs >;
+procurar erros de índice (0 vs 1);
+procurar variáveis não inicializadas.
+
+
+
+Mas po se arriscar sem endl me faz ficar preocupado, então tentar as abordagens diferentes e fazer nas melhores com ou sem endl
+sem a função nn faz sentido
+
+desenhar ordem em // primeiro

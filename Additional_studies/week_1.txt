@@ -1,0 +1,424 @@
+Function in C++
+
+int soma(int a, int b){}
+return x;
+
+Sorting list as 
+we can do sort list sort(v.begin, v.end);
+where v is the vector or list
+
+void - function não retorna nada
+
+verifying the multiply. x % 2 == 0
+
+C also copies the variable, to change it you need to insert & in the side of the variable
+
+sort(inicio, fim);
+função STL
+v.begin = posição no começo, v.end = posição após o ultimo elemnto
+sort(v.begin(), v.end(), greater<int>());
+greater<int>() é uma forma de fazer decrescente
+
+the function we insert after v.end() is what configures the list, if we want to make odds coming before.
+we can do it
+
+bool comp(int a, int b){
+
+    if(a % 2 != b % 2){
+        return a % 2 < b % 2;
+    }
+
+    return a < b;
+}
+sort(v.begin(), v.end(), comp);
+
+
+PAIR, muito ipc
+vector<pair<int,int>> v;
+
+bool comp(pair<int,int> a, pair<int,int> b){
+    return a.second < b.second;
+}
+logo podemos fazer uma ordenação com base num segundo valor
+
+bool comp(pair<int,int> a, pair<int,int> b){
+
+    if(a.second != b.second){
+        return a.second < b.second;
+    }
+
+    return a.first < b.first;
+}
+
+we can alread insert the function already
+sort(v.begin(), v.end(),
+    [](int a, int b){
+        return a > b;
+    }
+);
+
+ordene decrescente
+
+I want you to give me a class in como criar funções em C++, parâmetros, retorno
+Aprender: sort() da STL, comparator customizado. 
+Aula: Funções em C++ + sort() da STL + Comparators
+
+Se você vem de Python, pense assim:
+
+Python	C++
+def soma(a,b):	int soma(int a, int b){}
+return x	return x;
+list.sort()	sort(v.begin(), v.end())
+1. Estrutura básica de uma função
+Sintaxe
+tipo_retorno nome(parametros){
+    // código
+    return valor;
+}
+2. Função sem parâmetros
+#include <iostream>
+using namespace std;
+
+void ola(){
+    cout << "Ola!\n";
+}
+
+int main(){
+    ola();
+}
+Explicação
+void
+
+significa:
+
+"essa função não retorna nada"
+
+3. Função com parâmetros
+#include <iostream>
+using namespace std;
+
+void mostrarNumero(int x){
+    cout << x << "\n";
+}
+
+int main(){
+    mostrarNumero(10);
+}
+Fluxo
+mostrarNumero(10)
+
+x = 10
+4. Função com retorno
+#include <iostream>
+using namespace std;
+
+int soma(int a, int b){
+    return a + b;
+}
+
+int main(){
+    int resultado = soma(3, 5);
+
+    cout << resultado << "\n";
+}
+Explicação
+
+A função:
+
+return a + b;
+
+devolve um valor.
+
+5. Tipos de retorno
+Tipo	Significado
+int	inteiro
+double	decimal
+char	caractere
+string	texto
+bool	verdadeiro/falso
+void	nada
+6. Exemplo importante OBI
+Verificar se número é par
+bool ehPar(int x){
+    return x % 2 == 0;
+}
+
+int main(){
+    if(ehPar(8)){
+        cout << "SIM\n";
+    }
+}
+7. Passagem por valor
+Normalmente C++ COPIA a variável
+void muda(int x){
+    x = 100;
+}
+
+int main(){
+    int a = 5;
+
+    muda(a);
+
+    cout << a;
+}
+
+Saída:
+
+5
+
+Porque x é uma cópia.
+
+8. Passagem por referência (&)
+
+MUITO importante.
+
+void muda(int &x){
+    x = 100;
+}
+
+int main(){
+    int a = 5;
+
+    muda(a);
+
+    cout << a;
+}
+
+Saída:
+
+100
+O que o & faz?
+
+Significa:
+
+“não copie”
+
+“use a variável original”
+
+9. Vetores em funções
+Errado (copia tudo)
+void imprime(vector<int> v)
+Certo
+void imprime(vector<int> &v)
+10. Referência constante (const &)
+
+MUITO usado.
+
+void imprime(const vector<int> &v)
+
+Significa:
+
+não copia
+não pode modificar
+
+É o padrão ideal para leitura.
+
+11. Exemplo completo
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int somaVector(const vector<int> &v){
+
+    int soma = 0;
+
+    for(int x : v){
+        soma += x;
+    }
+
+    return soma;
+}
+
+int main(){
+
+    vector<int> v = {1,2,3,4};
+
+    cout << somaVector(v);
+}
+12. STL sort()
+
+Agora a parte MUITO importante para OBI.
+
+A STL já possui ordenação pronta.
+
+Você usa:
+
+sort(inicio, fim);
+13. Exemplo simples
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main(){
+
+    vector<int> v = {5,1,8,3};
+
+    sort(v.begin(), v.end());
+
+    for(int x : v){
+        cout << x << " ";
+    }
+}
+
+Saída:
+
+1 3 5 8
+14. Entendendo begin() e end()
+v.begin()
+
+= início do vetor
+
+v.end()
+
+= posição APÓS o último elemento
+
+15. Ordem decrescente
+sort(v.begin(), v.end(), greater<int>());
+5 4 3 1
+16. Comparator customizado
+
+Aqui fica MUITO poderoso.
+
+Você ensina ao sort como comparar.
+
+17. Comparator simples
+Ordenar pares primeiro
+bool comp(int a, int b){
+
+    if(a % 2 != b % 2){
+        return a % 2 < b % 2;
+    }
+
+    return a < b;
+}
+
+Uso:
+
+sort(v.begin(), v.end(), comp);
+18. Como o comparator funciona
+
+A função:
+
+comp(a,b)
+
+deve responder:
+
+"a deve vir antes de b?"
+
+Retorna:
+
+Valor	Significado
+true	a vem antes
+false	b vem antes
+19. Exemplo visual
+comp(2,5)
+
+retorna:
+
+true
+
+Então:
+
+2 vem antes de 5
+20. Comparator em pair
+
+MUITO usado em programação competitiva.
+
+vector<pair<int,int>> v;
+
+Exemplo:
+
+{idade, nota}
+Ordenar pela segunda posição
+bool comp(pair<int,int> a, pair<int,int> b){
+    return a.second < b.second;
+}
+
+Uso:
+
+sort(v.begin(), v.end(), comp);
+21. Comparator com empate
+bool comp(pair<int,int> a, pair<int,int> b){
+
+    if(a.second != b.second){
+        return a.second < b.second;
+    }
+
+    return a.first < b.first;
+}
+22. Lambda comparator (moderno)
+
+Muito comum hoje.
+
+sort(v.begin(), v.end(),
+    [](int a, int b){
+        return a > b;
+    }
+);
+Tradução
+ordene decrescente
+23. Comparator MUITO importante
+Ordenar strings por tamanho
+bool comp(string a, string b){
+    return a.size() < b.size();
+}
+
+O(N log N) -> complexidade do sort
+but to use sort we need to insert #include <algorithm>
+
+Ordenar aluno por nota.
+
+
+string line;
+    getline(cin, line);
+
+    // Split line into words
+    vector<string> words;
+    istringstream iss(line);
+    string w;
+
+while (iss >> w) {
+    words.push_back(w);
+}
+
+// Stable sort preserves original order for equal-length strings
+    stable_sort(words.begin(), words.end(), cmp_stable_1244);
+
+
+// study this solution for problem 1244
+bool cmp_stable(const string& a, const string& b) {
+    return a.size() < b.size(); // ascending by length
+}
+
+int main() {
+    int N;
+    cin >> N;
+    cin.ignore();
+
+    for (int i = 0; i < N; i++) {
+        string line;
+        getline(cin, line);
+
+        // Split line into words
+        vector<string> words;
+        istringstream iss(line);
+        string w;
+        while (iss >> w) {
+            words.push_back(w);
+        }
+
+        // Stable sort preserves original order for equal-length strings
+        stable_sort(words.begin(), words.end(), cmp_stable);
+
+        // Print with spaces BETWEEN words (no trailing space)
+        for (int j = 0; j < words.size(); j++) {
+            if (j > 0) cout << " ";
+            cout << words[j];
+        }
+        cout << "\n";
+    }
+
+    return 0;
+}

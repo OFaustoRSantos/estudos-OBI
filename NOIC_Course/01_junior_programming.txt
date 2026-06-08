@@ -1,0 +1,438 @@
+# Complexidade
+
+Quantificação tempo gasto para gerar uma saida
+Nem todas as linhas tem o mesmo custo, então nn faz sentido usa-long
+mas podemos analisar quanto o custo do programa varia a medida que a entrada aumenta
+
+Isso chamamos de Complexidade
+Big-O
+F(n) = O(g(n)), se existe N e C, tais que para todo n >= N, f(n) <= c * g(n).
+
+Logo fazemos uma relação de um programa a outro com uma entrada N
+https://noic.com.br/materiais-informatica/curso/aula-especial-complexidade/
+- Propriedades matematicas, não acredtio serem tão IPC
+
+1. Analisamos N grande normalmente
+em si valorizamos mais o n exemplo
+O(n^3) e não O(5n^3+12n^1/2)
+que é o termo que mais cresce com aumento de um no N
+
+permite tentar estimar da complexidade da solução do problema, 
+o que nos permite ter uma noção dos algoritmos que usaremos para resolver a questão
+
+Às vezes uma função é assintoticamente mais rápida que outra, porém para os valores do problema é melhor usar a mais lenta
+TLE (time limit exceeded), as vezes os fatores menores e as constantes levam nisso
+
+talvez a solução certa tenha uma complexidade alta e você deve usar heurísticas para tornar o programa mais rápido
+O que seria heuristicas
+
+## Tipos de complexidade: 
+O(1) - Um algoritmo que sempre vai demorar a mesma quantidade de tempo, independente da entrada, ou seja, de tempo constante.
+O(long n) - Esse algoritmo custa uma quantidade de operações proporcional ao logaritmo do número, assim se elevamos n ao quadrado, duplicamos o tempo necessário para o algoritmo gerar resposta, o algoritmo mais conhecido nessa complexidade é a busca binária
+O(raiz n) 
+O(n) - linear, loop de 0 a N
+O(n log n) - quick sort, merge sort.
+O(n^2) - leitura/preencher de matrix
+
+O(2^n) e O(n!) - ambos são força bruta
+
+# técnicas de programação
+# Busca binária - 01
+https://noic.com.br/materiais-informatica/curso/techniques-01/
+x está no vetor?
+
+Usando percursão um a um teriamos O(n) porém se fizessemos pergunta de m x teremos complexidade o(n*m)
+
+outro tipo lowerbound o menor inteiro presente no vetor que é maior ou igual a x.
+
+Tenho que ver: Exemplo de Busca Binária na resposta e Menor Caminho, Busca Binária na resposta no topico da aula ainda
+
+# Algoritimo guloso
+Entender o paradigma: escolha local ótima → solução global ótima (e quando falha)
+Implementar: seleção de atividades por tempo de término (problema clássico de intervalos)
+Resolver: CSES "Movie Festival" - https://cses.fi/problemset/task/1629
+
+Entendendo situação da aula
+1° linha - numero de fornecedores, m a demanda.
+depois tem um pair p e e, onde p = preço litro, e = estoque em litros
+using #include <utility> 
+
+int n = 0;
+double m = 0;
+cin >> n >> m;
+vector<pair<double,double>> data;
+// do a push back
+
+for(int i = 0; i < n; i++){
+        double preco, estoque;
+        cin >> preco >> estoque;
+
+        data.push_back({preco, estoque});
+    }
+
+bool comp(pair<double,double> a, pair<double,double> b){
+
+    return a.first < b.first;
+    
+}
+sort(data.begin(), data.end(), comp);
+int pos = 0;
+double price = 0;
+
+// Checking price
+while (m > 0){
+    if(pos == data.size()){
+        cout << "impossivel" << endl;
+        return 0;
+    }
+    if(m >= data[pos].second()){
+        m -= data[pos].second();
+        price += data[pos].second() * data[pos].first();
+    }
+    else{
+        price += data[pos].first() * m;
+        m = 0;
+    }
+    pos++;
+}
+cout << fixed << setprecision(2) << price << endl;
+
+Outra forma legal é:
+
+using struct - criar um tipo de dado, muito comum com python
+Para isso usamos o #include <cstdio> ou #include <iostream>
+
+struct gas { double preco, estoq;};
+
+#include <cstdio>
+#include <algorithm>
+
+#define MAXN 100100
+
+using namespace std;
+
+struct gas{ double preco, estoq; }; // declaro a struct gas
+
+bool compara(gas x, gas y){ return x.preco < y.preco; } // declaro a bool compara
+
+gas forn[MAXN]; // crio um array de gas de nome "forn" para representar a lista
+
+// declaro as variáveis que vou usar
+int n; 
+double d, custo;
+
+int main(){
+	
+	scanf("%d %lf", &n, &d); // leio os valores de n e d
+	
+	// leio o preço e eo estoque de cada fornecedor
+	for(int i=1; i<=n; i++) scanf("%lf %lf", &forn[i].preco, &forn[i].estoq);
+	
+	// ordeno o veotor de gas
+	sort(forn+1, forn+n+1, compara);
+	
+	// percorro o vetor
+	for(int i=1; i<=n; i++){
+		
+		// o fornecedor davez será o que estou olhando no vetor, no momento
+		gas davez=forn[i];
+		
+		// se todo o seu estoque não consegue preencher o que ainda preciso
+		if(davez.estoq<d){
+			
+			custo+=davez.estoq*davez.preco; // somo a custo o valor de comprar todo o estoque
+			d-=davez.estoq; // e subtraio de d o litros que comprei
+		}
+		
+		// caso contrário, ou seja, dá pra encher tudo só com esse fornecedor
+		else{
+			
+			custo+=d*davez.preco; // somo  acusto o valor de comprar o que preciso
+			d=0; // zero a quantidade que a inda falta comprar
+			break; // e paro de percorrer o vetor, pois já comprei o que precisava
+		}
+	}
+	
+	// se o loop acabar e ainda houver alguma quantidade em d
+	if(d) printf("Impossivel\n"); // então não foi possível comprar tudo o que precisava
+	
+	// caso contrário, foi possível
+	else printf("%.2lf\n", custo); // e imprimo o valor gasto na compra
+	
+	return 0;
+}
+
+Algoritimo guloso - temos que fazer algumas escolhas, ordeno as opções usando o critério de comparação, depois vou escolhendo as melhores opções até que tenha feito tudo o que preciso
+Tomo opção de ótimos locais esperando que isso leve a um otimo global.
+Padrão de boas escolhas transforma-se num resultado bom/ melhor 
+Como o comparativo é muito bom e o problema pode ser resolvido dessa maneira é bem bom
+
+Um programa que vai procurando as melhores opções no momento, é um programa guloso, e este tipo de algoritmo resolve muitos problemas.
+One OBI problem to try to solve - http://olimpiada.ic.unicamp.br/pratique/programacao/nivelj/2010f2pj_dentista
+implementação geral de um algoritmo guloso: tenho que fazer um conjunto de escolhas; crio um critério de ordenação para elas, que decide qual a melhor a ser tomada; ordeno as escolhas por esse critério; percorro as possíveis escolhas, da melhor para a pior, sempre escolhendo as possíveis, com prioridade para as melhores, até já ter atingido meu objetivo.
+
+#include <cstdio>
+#include <algorithm>
+
+#define MAXN 10100
+
+using namespace std;
+
+struct compromisso { int ini, fim; }; // declaro a sruct compromisso
+
+// declaro a função que compara compromissos pelo horário de fim
+bool compara(compromisso a, compromisso b){ return a.fim<b.fim; }
+
+compromisso consulta[MAXN]; // crio o vetor de compromissos de nome consulta
+
+int n, x, y, livre, qtd; // declaro os inteiros que vou usar
+
+int main(){
+	
+	scanf("%d", &n); // leio o valor de n
+	
+	// leio os horários de início e fim de cada consulta
+	for(int i=1; i<=n; i++) scanf("%d %d", &consulta[i].ini, &consulta[i].fim);
+	
+	// ordeno as consultas pelo horário de fim
+	sort(consulta+1, consulta+n+1, compara);
+	
+	// percorro o vetor ordenado
+	for(int i=1; i<=n; i++) // para cada consulta
+		if(consulta[i].ini>=livre){ // se posso atendê-la
+			
+			qtd++; // aumento o número de atendimentos
+			livre=consulta[i].fim; // e guardo a hora em que o dentista estará livre
+		}
+		
+	printf("%d\n", qtd); // por fim, imprimo o valor de qtd
+	
+	return 0;
+}
+
+Falta fazer os exercicios da sessão de algoritimo guloso
+- fiz 1°
+- falta
+
+Resolver: CSES "Movie Festival" 
+Implementar: seleção de atividades por tempo de término (problema clássico de intervalos)
+
+
+
+# Soma de prefixo, two pointers
+vetor v de tamanho n
+q perguntas(queries)
+dois indices cada queries
+
+vector<int> v;
+int q = 0;
+cin >> q;
+int sum = 0;
+// forma 1:
+for(int i = 0; i <= q; i++){
+    int l,r;
+    cin >> l >> r;
+    while (l != r) {
+        sum += v[l] + v[r];
+        l++;
+        r--;
+    }
+}
+// forma 2:
+vector<int> s;
+s.push_back(v[0]);
+for(int i = 1; i < v.size(); i++){
+    s[i] = s[i-1] + v[i];
+}
+for(int i = 0; i <= q; i++){
+    int l,r;
+    cin >> l >> r;
+    cout << s[r]-s[l-1] << endl;
+}
+
+
+
+
+Exercícios:
+Implementar prefix sum 1D: "soma de subarray [l,r] em O(1)"
+Implementar two pointers: par com soma = k em array ordenado
+Resolver: CSES "Subarray Sums I"
+
+
+Resolver: CSES "Sum of Two Values" (two pointers) + CSES "Maximum Subarray" (Kadane)
+Para cada problema: escrever complexidade antes de submeter
+Se sobrar tempo: Beecrowd 1244
+
+# Grafo
+Resolver: CSES "Sum of Two Values" (two pointers) + CSES "Maximum Subarray" (Kadane)
+Para cada problema: escrever complexidade antes de submeter
+Se sobrar tempo: Beecrowd 1244
+
+
+O que é um grafo - Conjunto de vertices e um conjunto de arestas que ligam os vertices
+-> Logo nada mais é que um grupo de pontos ligados por um grupo de vertices
+
+vertices isolados não estão em ligadas por nenhuma arestas
+
+Problema 1: Você tem um mapa com várias cidades e estradas entre elas e quer saber 
+se existe um caminho entre duas determinadas cidades.
+Grafo: Os vértices são as cidades e as arestas são as estradas.
+
+Problema 2: Você tem um tabuleiro de xadrez e um cavalo numa determinada casa. 
+Você quer saber se é possível ir até uma outra determinada casa.
+Grafo: Os vértices são as casas do tabuleiro e há uma aresta entre duas casas 
+se é possível ir de uma até outra com um movimento de cavalo.
+
+Problema 3: Você tem um mapa de uma cidade onde cada rua liga duas esquinas. 
+Você quer saber se é possível ir da sua casa (que fica numa esquina) até a 
+casa de um amigo seu (que fica em outra esquina).
+Grafo: Os vértices são as esquinas e as arestas são as ruas.
+
+O grau de um vértice é o número de arestas que são incidentes nele.
+
+pode ter um self loop, vertice para ele mesmo
+pode ser direcionado ou bidirecionado
+
+Matrix de adjacencia eu lembro
+
+outra forma é cada vector<vector<int>> matrix
+vector int = vizinhos
+vector<..> = vertice em questão
+
+Componente conexa é um conjunto (máximo) de vértices tal que, para qualquer vértice u e v pertencentes a componente, existe um caminho de u a v.
+
+componente fortemente conexa é semelhante ao acima, porém aplicado a grafos direcionados
+Neste caso, porém, não basta existir um caminho de v a u, precisa-se, também, existir um caminho de u a v.
+
+Um grafo bidirecional é chamado de árvore se, e somente se, ele for conexo e não tiver ciclos
+
+Um grafo é chamado de completo se possui arestas entre todo par possível de vértices.
+
+# Grafos 2 - buca em grafos
+
+Flood fill - problemas de ir preenchendo um grafo
+busca em profundidade (DFS) e busca em largura (BFS).
+
+## DFS
+em cada passo, olhar os vizinhos do nó v que se está avaliando e, 
+para cada um deles cuja componente ainda não foi determinada
+fazer sua componente ser a mesma de v e chamar a função recursivamente nele.
+I didn't understood
+## ????:
+better explained :
+A --- B --- D
+|     |
+|     |
+C --- E
+
+- Começando do A vamos visitar todos os nós conectados a ele
+| Vá o mais profundo possível antes de voltar
+void dfs(int u){
+    visited[u] = true;
+
+    for(int v : graph[u]){
+        if(!visited[v]){
+            dfs(v);
+        }
+    }
+}
+
+Visit u
+For each neighbor v
+* If not visited:
+- visit it recursively
+- finish its entire subtree
+> Only then return
+
+E verificando se foi visitado já é uma ideia muito maneira
+
+
+
+## BFS
+"Visit everything nearby before going farther."
+
+- Level 0: A
+- Level 1: B C
+- Level 2: D E 
+Visit its neighbors: Then visit neighbors of B and C:
+
+BFS order:
+> A B C D E
+
+## queue(FIFO)
+BFS order:
+A B C D E
+Instead of immediately exploring B, we put it in a queue.
+
+[B, C] - Removes B, process it, add its neighbors
+[C, D, E] - then make the same with C and non visited ones
+
+Notice that the nodes are processed in the oerder they were discovered
+
+// existe uma função queue
+void bfs(int start){
+    queue<int> q;
+
+    visited[start] = true;
+    q.push(start); // colocar numero que começa
+
+    while(!q.empty()){  // enquanto nn tirar todos os q
+        int u = q.front(); / /"Take the next node waiting to be processed."
+        q.pop();
+
+        for(int v : graph[u]){
+			// se nn tiver sido visitado -> adicionar no final da lista
+            if(!visited[v]){
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+}
+
+// q.front() returns the element at the front of the queue (the next one to leave)
+// the first add after exclude the other.
+// q.pop()
+// the loop for ->
+
+vector<int> neighbors = {3, 7, 9};
+
+for(int x : neighbors){
+    cout << x << " ";
+}
+// para x em vetor, x se torna o 1 -> 2 -> etc
+é igual:
+vector<int> neighbors = {3, 7, 9};
+
+for(int x : neighbors){
+    cout << x << " ";
+}
+
+DFS
+Connected components
+Cycle detection
+Tree traversals
+Topological sort
+Backtracking
+BFS
+Shortest path in an unweighted graph
+Minimum number of moves
+Level-by-level exploration
+Distances from a source
+
+A common OBI intuition:
+
+"Visit the entire component" → DFS or BFS.
+"Find the minimum number of edges/moves" → BFS is usually the first thing to think about.
+
+
+Quanto a complexidade
+A DFS é mais fácil de se implementar e de se debugar. A BFS também tem suas vantagens, que veremos em breve. Ambas rodam em tempo  O(V+E), onde V é o número de vértices e E o número de arestas.
+
+Grafos problem
+P1 - Gingacana - https://neps.academy/br/course/algoritmos-em-grafos-(codcad)/lesson/gincana-(obi-2011)
+P2 - Color - https://neps.academy/br/exercise/535
+P3 - Tarzan - http://olimpiada.ic.unicamp.br/pratique/programacao/nivel2/2012f1p2_tarzan
+P4 - Naval - http://olimpiada.ic.unicamp.br/pratique/programacao/nivel2/2010f1p2_batalha
+P7 - http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1887
+

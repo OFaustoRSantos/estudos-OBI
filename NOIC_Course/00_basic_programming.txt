@@ -1,0 +1,222 @@
+cin >> val_1;
+; em tudo
+
+Estrutura semelha java em algumas coisas
+
+cout é concateavel
+cout << a << " " << b << endl;
+\n também funciona como endl mas tem que estar entre ""
+
+Loop clássico: for (int i = 0; i < 5; i++) {
+
+}
+
+para in range() do python seria
+for (int i = 0; i < v.size(); i++) {
+    cout << v[i] << "\n";
+}
+aonde v é um vetor/lista
+
+while tbm é possível:
+while (x > 0) {
+    x--;
+}
+
+Criação de list/array: apelidade vector
+vector<int> v;
+
+v.push_back(5); // adicionar o 5 na ultima posição da lista
+
+loop com v
+for (int x : v) {
+    cout << x << "\n";
+}
+
+
+IPC:
+
+cin >> s
+// Lê apenas UMA palavra.
+
+Para linha inteira:
+getline(cin, s);
+
+para array:
+int arr[100]; or vector<int> (ultimo é preferível)
+
+Pairs:
+
+pair<int, int> p;
+p = {3, 7};
+
+cout << p.first << "\n";
+cout << p.second << "\n";
+
+Sorting simples de lista em C++:
+
+vector<int> v = {5, 2, 8, 1};
+
+//Crescente
+sort(v.begin(), v.end());
+// Decrescente
+sort(v.rbegin(), v.rend());
+
+
+
+//Aula 1 - Estrutras condicionais
+== (igual a): Verifica se dois valores são iguais.
+!= (diferente de): Verifica se dois valores são diferentes.
+< (menor que): Verifica se o valor à esquerda é menor que o valor à direita.
+> (maior que): Verifica se o valor à esquerda é maior que o valor à direita.
+<= (menor ou igual a): Verifica se o valor à esquerda é menor ou igual ao valor à direita.
+>= (maior ou igual a): Verifica se o valor à esquerda é maior ou igual ao valor à direita.
+
+if (condicao) {
+  // o código dentro das chaves é executado caso a expressão
+  // dentro dos parênteses seja verdadeira (diferente de zero)
+}
+
+// Operadores:
+
+&& = and . || = Or . ! = Not . 
+%x = resto da divisão por x
+
+
+// Aula 2 - Loops
+
+facilitações:
+x = x - y 
+ x -= y
+x = x * y 
+ x *= y
+x = x / y 
+ x /= y
+x = x % y 
+ x %= y
+
+em caso de mudar 1 unidade
+x++ or x--
+
+
+while(condição){
+
+}
+Chamamos isso de iteração
+
+outro loop famoso:
+for(inicialização; condição; atualização){
+  // código executado enquanto a condição é verdadeira
+}
+
+Possiveis formas de modificar for
+break literalmente quebra ciclo
+
+continue - pula essa parte e inicia o proximo ciclo
+
+
+// vector
+1° é necessário importar com #include <vector>
+
+Sintaxe básica do vetor:
+- Declarar vetor, tipo nome tamanho, acessar valor em uma posição
+
+possível declarar vetor dentro da main, mas é comum declarar fora, pois inicializa cada posição com 0 e com um pouco mais de posições no tamanho máximo do mesmo
+
+
+OBS: possível somar strings
+
+porem cin >> recebe apena uma palavra
+tem que importar o <string> tbm
+
+para pegar frase completa tem que usar getline()
+
+vetor dinâmico
+
+adicionar um elemento ao final do vetor, ou apagar o último elemento. Podemos implementar isso de forma fácil, estabelecendo um tamanho máximo para o vetor e guardando o tamanho atual em uma variável
+Interessante.
+Mas no vector podemos usar o variable.push_back(element)
+
+
+# Matriz
+
+Using vector as Matriz like as pair?
+
+int B[2][4] becomes a matrix
+that's what we call as B[i][j] - linha i coluna j
+chamamos isso de vetor de N vetores de tamanho M 
+
+tipo nome[N][M]
+
+B[3][3]:
+|_|_|_|
+|_|_|_|
+|_|_|_|
+
+Matriz N por N
+Principal quando i = j
+Sevundária quando i + j = N -1
+
+Still need to finish the exercises
+
+# Functions
+
+#include <cstdio>   // scanf, printf
+#include <cstring>  // strlen, strcmp
+
+pode se usar com base em C ou C++ o outro que aprendi
+scan ->
+scanf -> parametros ( 1° - string, 2° - série de ponteiros - endereços para algumas variaveis)
+Entrada de dados tipo o input() do python
+
+scanf(" Insert a value: %d", &x);
+printf ->
+is a way to show values like cout
+int main() {
+    int idade = 17;
+
+    printf("Idade = %d\n", idade);
+
+    return 0;
+}
+it use Formatadores
+int	%d
+long long	%lld
+float	%f
+double	%lf
+char	%c
+string C (char[])	%s
+
+
+Both of them are faster than cin
+
+## strings
+A string é um vetor de chars:
+
+F a u s t o \0
+
+O \0 marca o final da string.
+
+strlen -> this counts how many char have in the string
+we just say strlen(string)
+
+strcmp ->
+A way to compare strings
+0 - iguais
+< 0 - primeira menor
+> 0 - primeira maior
+
+
+Vou usar o cin/cout/string
+
+we can use recursividade: return fib(n-1)+fib(n-2);
+uma função chamando outra
+
+P1 - http://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=36
+
+
+# ordenação
+
+
+# STL
+https://noic.com.br/materiais-informatica/curso/data-structures-guide/
+- preciso ver 
