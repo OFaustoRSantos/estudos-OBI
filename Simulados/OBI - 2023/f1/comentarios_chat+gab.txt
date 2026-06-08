@@ -51,9 +51,8 @@ estrutura diferente;
 tratamento diferente dos casos.
 
 Não vale muito a pena gastar submissões com:
-
 com endl;
-sem endl;
+sem endl; - me preocupa um pouco isso ainda
 com função;
 sem função;
 com vetor;
@@ -68,7 +67,6 @@ testar os exemplos;
 procurar bugs de >= vs >;
 procurar erros de índice (0 vs 1);
 procurar variáveis não inicializadas.
-
 
 
 Mas po se arriscar sem endl me faz ficar preocupado, então tentar as abordagens diferentes e fazer nas melhores com ou sem endl
