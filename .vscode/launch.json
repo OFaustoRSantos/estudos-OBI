@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
+      "cwd": "c:/Users/Escola/Documents/Fausto/Profissional/Programação/OBI studies/Simulados/OBI - 2022/fase 1",
+      "program": "c:/Users/Escola/Documents/Fausto/Profissional/Programação/OBI studies/Simulados/OBI - 2022/fase 1/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

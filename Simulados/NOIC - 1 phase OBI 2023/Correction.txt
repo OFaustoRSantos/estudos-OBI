@@ -1,0 +1,11 @@
+Fui pessimo, tenho que me acostumar a tentar rodar o código sempre, to pegando muito erro de compilação ou run time por isso.
+
+Refazer Danoni;
+Consertar atacante devedor
+Consertar banda de nerds -  amanhã pós simulado;
+
+Preciso rever:
+Prefix Sum
+Two Pointers
+Agrupamento com map<string, vector<int>>
+Ordenação com comparadores

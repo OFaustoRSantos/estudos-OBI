@@ -7,24 +7,24 @@ using namespace std;
 struct candidato{
     string instrumento;
     int habilidade;
-}
+};
 
 vector<candidato> candidatos;
 
 bool comp(candidato a, candidato b){
     if(a.instrumento == b.instrumento){    
-        return a.habilidade < b.habilidade;
+        return a.habilidade > b.habilidade;
     }
     else{
-        return a.instrumento < b.instrumento;
+        return a.instrumento > b.instrumento;
     }
 }
 
 int main(){
-    int N,K;
+    int N,K = 0;
     cin >> N >> K;
 
-    int sum_skills;
+    int sum_skills = 0;
 
     // para struct
     string inst;
