@@ -1,7 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <cmath>
 using namespace std;
 
 // grafico, popularidade
@@ -11,7 +9,7 @@ int main (){
     int N; // numeros de brinquedos
     cin >> N;
     int ni; // numero de votos cada brinquedo
-    int max;
+    int max = 0; // sempre inicializar valor
     for(int i =0; i<N; i++){
         cin >> ni;
         if(ni > max){
@@ -42,3 +40,4 @@ int main (){
     }
     return 0;
 }
+// 100% com os exemplos

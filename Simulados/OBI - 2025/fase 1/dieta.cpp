@@ -14,7 +14,7 @@ int main (){
     int N;
     cin >> N >> M;
     int P,G,C;
-    int calorias_consumidas;
+    int calorias_consumidas = 0;
     lasanha lasanha_at;
     for(int i = 0; i < N; i++){
         cin >> P >> G >> C;
