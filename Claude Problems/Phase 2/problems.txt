@@ -1,0 +1,11 @@
+# Problem n_1 - Labirinto
+Em um museu representado por uma grade N×M, Ana quer ir da entrada (S) à saída (E) percorrendo o menor número de passos possível. Ela pode se mover para cima, baixo, esquerda e direita. Células com '#' são paredes, '.' são corredores livres.
+
+Dado o mapa do museu, determine o menor número de passos para ir de S até E. Se não houver caminho, imprima -1.
+Entrada
+
+4 5
+S...# 
+.#...
+..#.#
+#...E

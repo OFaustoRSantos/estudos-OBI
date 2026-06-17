@@ -329,7 +329,7 @@ C --- E
 | Vá o mais profundo possível antes de voltar
 void dfs(int u){
     visited[u] = true;
-
+    // interessante
     for(int v : graph[u]){
         if(!visited[v]){
             dfs(v);

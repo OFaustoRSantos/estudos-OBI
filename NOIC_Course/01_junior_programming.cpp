@@ -8,7 +8,7 @@ int sum_range(){
     int q = 0;
     cin >> q;
     int at = 0;
-    for(int = 0; i<q; i++){
+    for(int i = 0; i<q; i++){
         at = 0;
         cin >> at;
         list.push_back(at);
@@ -32,13 +32,13 @@ int sum_range(){
 // https://olimpiada.ic.unicamp.br/pratique/p1/2017/f1/cofre/
 
 int 2017_f_1_p_1(){
-
+    return 0;
 }
 
 // https://olimpiada.ic.unicamp.br/pratique/p2/2019/f1/soma/
 
 int 2019_f_1_p_2(){
-    
+    return 0;
 }
 
 int binary_search(vector<int> &list, int e){

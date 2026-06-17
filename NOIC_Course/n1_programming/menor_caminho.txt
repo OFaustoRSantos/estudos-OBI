@@ -1,0 +1,140 @@
+- Menor Caminho:
+# Dijkstra
+
+Grafo de N vertices, M arestas, cada um contem um peso positivo
+
+Vertice S do grafo
+Problema do menor caminho = calcular para cada vertice V a menor distancia S ->
+
+Criar uma matrix min distance?
+matrix - menor caminho, S -> Y
+usando matrix de adjacencia, ou de vizinhos - maybe
+
+usando DFS:
+distancia_at = 0;
+
+# Recursivo
+void dfs(int u){
+    visited[u] = true;
+    // interessante
+    // Lista de adjacencia necessária
+    for(int v : graph[u]){
+        if(!visited[v]){
+            // calculate distancia V-> u e adicionar isso numa matrix
+            dfs(v);
+        }
+    }
+}
+# Não é "Recursivo "
+void bfs(int start){
+    queue<int> q;
+
+    visited[start] = true;
+    q.push(start); // colocar numero que começa
+
+    while(!q.empty()){  
+        // enquanto nn tirar todos os q
+        int u = q.front(); / /"Take the next node waiting to be processed."
+        q.pop();
+
+        // lista adjacencia necessária
+        for(int v : graph[u]){
+			// se nn tiver sido visitado -> adicionar no final da lista
+            if(!visited[v]){
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
+}
+
+
+Estrutura Dijkstra:
+1 - Inicialmente, marque todos os vértices do grafo como não visitados. Além disso, defina a distância atual para S(origem) como 0 e para todos os outros vértices como -inf(pois assim não ter garbage values e sempre será maior que a 1° distancia encontrada, podia ser usa -1 e fazer regra de if == -1 . else if menor ).
+2 - Encontre, dentre os vértices não visitados, aquele com menor distância atual. 
+-> for(int i : graph[v]){if (> min){min = i}}
+-> eu faria uma lista daria um sort só na real, e pegaria o 1°
+
+Chame-o de e marque-o como visitado. Assim, a distância atual de U é, de fato, a sua menor distância para S e U não será visitado novamente.
+dat(S,V) = grafo NxN
+3 - Para todo vizinho de V de U, cheque se: 
+dat(S,V) > d(S,U) + w(U,V), onde du(S,V) é a distancia atual de V, d(S, U) é o menor caminho de U e w(U,V) é o peso da aresta que liga U e V. 
+Se sim, atualize a distancia atual de V para d(S, u) + w(u,v).
+
+Possível salvar junto a isso o caminho usado simplesmente fazendo uma matrix de duas dimensões(/3 dimensões), dentro da posição tem um struct - int distancia, vector<int> caminho;
+
+4 - Interar isso para todos os vértices
+
+Na prática, resolver ao menos 8 problemas sobre isso!
+
+
+Código de observação - usa pair - ou seja lógica de: .first()
+
+// Bom treino: Converter para + moderno // Estudar isso 1° coisa no docs de estudo
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+typedef pair<int, int> pii;
+
+const int maxn = 1e5+10;
+const int inf = 1e9+10;
+
+// quantidade de vértices e arestas
+int n, m;
+
+// distância Atual de cada vértice
+int dist[maxn];
+
+// vetor que irá marcar os vértices visitados
+bool mark[maxn];
+
+// lista de adjacência que guarda um par (vértice, peso)
+vector<pii> grafo[maxn];
+
+void dijkstra(int S)
+{
+	// primeira etapa do algoritmo
+	for (int i = 1; i <= n; i++)
+		dist[i] = inf;
+
+	dist[S] = 0;
+
+	// fila de prioridade para guardar a distância atual de cada vértice em ordem crescente
+	priority_queue<pii, vector<pii>, greater<pii>> fila;
+
+	// inicialmente, inserimos apenas a origem
+	fila.push({0, S});
+
+	// quando todos os vértices forem marcados, a fila ficará vazia, e nesse momento o algoritmo para
+	while (!fila.empty())
+	{
+		// segunda etapa do algoritmo
+		int u = fila.top().second;
+		fila.pop();
+
+		// se U já foi marcado, apenas o ignoramos
+		if (mark[u])
+			continue;
+
+		// marcamos U
+		mark[u] = 1;
+
+		for (auto V: grafo[u])
+		{
+			int v = V.first, w = V.second;
+
+			// terceira etapa do algoritmo
+			if (dist[v] > dist[u] + w)
+			{
+				// atualizamos a distância atual de V e a inserimos na fila
+				dist[v] = dist[u] + w;
+				fila.push({dist[v], v});
+			}
+		}
+	}
+
+	// No fim do algoritmo, o vetor 'dist' possuirá o menor caminho para
+	// todos os vértices do grafo
+}
