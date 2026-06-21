@@ -74,9 +74,26 @@ int search(int pos_at, set<int> &grupo_at, vector<amigos> &adjacencia_copy){
         search(adjacencia_copy[posi_vert].amigos[j], grupo_at, adjacencia_copy);
         adjacencia_copy[posi_vert].amigos.delete(adjacencia_copy[posi_vert].amigos[j]); // apagando os vistos da lista de amigos
     }
+    posi_vert = -1;
+    // new posi_vert após search
+    for(int i=0; i < adjacencia_copy.size(); i++){
+        if(adjacencia_copy[i].ref == pos_at){
+            posi_vert = i;
+            break;
+        }
+    }
+    
+    if(posi_vert == -1){
+        return 0;
+    }
+    grupo_at.insert(adjacencia_copy[posi_vert])
     adjacencia_copy.erase(adjacencia_copy.begin() + posi_vert);
     return 0;
 }
+
+// preciso achar um algoritimo que faz calculo do numero de subgrafos/pedaços - flood fill
+
+// por bfs ou dfs
 
 int main(){
     

@@ -91,18 +91,20 @@ int dist[maxn];
 bool mark[maxn];
 
 // lista de adjacência que guarda um par (vértice, peso)
-vector<pii> grafo[maxn];
-
+vector<pii> grafo[maxn]; // first vertice_final, second peso
+ 
 void dijkstra(int S)
 {
 	// primeira etapa do algoritmo
 	for (int i = 1; i <= n; i++)
 		dist[i] = inf;
-
+	// definir todas as distancias até o vertice inicial como inf
 	dist[S] = 0;
-
+	// definir distancia do vertice at = 0 em relação a ele mesmo
 	// fila de prioridade para guardar a distância atual de cada vértice em ordem crescente
 	priority_queue<pii, vector<pii>, greater<pii>> fila;
+	// esse priority_queue é um tipo de objeto ?? como ele funcional
+	// entendi nada desse priority_queue
 
 	// inicialmente, inserimos apenas a origem
 	fila.push({0, S});
@@ -138,3 +140,7 @@ void dijkstra(int S)
 	// No fim do algoritmo, o vetor 'dist' possuirá o menor caminho para
 	// todos os vértices do grafo
 }
+
+// estudar esse docs + fazer exercícios flood fill
+
+/ voltando pro rio fazer diariamente 3-4 exercicios cada aula noic
