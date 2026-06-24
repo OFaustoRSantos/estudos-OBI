@@ -59,14 +59,20 @@ int main()
             // Quando y é uma potência de 2, a operação X & y (operador bitwise AND) serve para verificar se o bit na posição correspondente a y está ativado (vale 1) no número X.
 			{ 
 				s += v[i];
-				maior = max(maior, v[i]); // calculo a maior dificuldade
+				maior = max(maior, v[i]); // calculo a maior dificuldade - função intessante, mais rapida que if x < y max = y
+
 				menor = min(menor, v[i]); // calculado a menor dificuldade
 			}
 		}
 
 		if(s >= l and s <= r and (maior – menor) >= x) resp++; // se a prova é valida, adiciono um no contador
-
+		// ou seja, testar TODAS as provas possíveis para ver se é valida porém fazemos o teste por bitmask, acelerando
 	}
 	cout << resp << "\n";
 	return 0;
 }
+
+// exemplo dois
+
+// fechar exercicios para praticar: de bitmask
+// ver final de bitmask

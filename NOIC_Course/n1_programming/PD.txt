@@ -1,0 +1,64 @@
+// Programação dinâmica
+
+- Fibonacci
+Recalcular Fib(x) varias vezes para poder achar fib(x+5) é ineficiente
+
+Resposta para facilitar
+criar um hash com x | fib(x)
+// dois vetores
+int dp[maxn]; bool mark[maxn];
+
+// agora usando mesma função fib, iremos fazer um review, se mark[x] == 1// true
+// pegar valor em dp[x] caso não calcular.
+
+A ideia de Programação Dinâmica (ou Dynamic Programming (DP), em inglês) é evitar o recálculo de uma função para os mesmos parâmetros que já calculamos alguma vez, salvando todos os resultados já obtidos até então e calculando o valor da função apenas se ele nunca foi calculado, exatamente como fizemos no exemplo da sequência de Fibonacci. Assim só calculamos cada valor da função uma única vez!´
+
+Programação Dinâmica serve mais para uma grande classe de problemas as vezes chamados de problemas de Otimização combinatória
+
+No geral usamos DP para: contar, calcular o máximo/mínimo, saber se algo existe ou não
+
+Chamaremos de estados da DP os parâmetros que usamos para definir a função.
+
+Temos uma escada com n degraus e um atleta, Pisano. Sabemos que, a partir degrau do i, Pisano consegue andar para o degrau i+1 ou i+2. 
+Nessas condições queremos saber a quantidade de maneiras distintas que Pisano consegue chegar do primeiro até o último degrau 
+(Duas maneiras são distintas se a quantidade de passos dados é diferente ou se existe algum  i tal que o i-ésimo passo na primeira sequência é diferente do i-ésimo passo na segunda sequência).
+
+Força bruta - definir uma função cujo parâmetro é o conjunto de todos valores já visitados nesse caminho, o que seria uma função perfeitamente válida, especialmente se quiséssemos printar todos as possibilidades na tela.
+
+Aplicação disso:
+#include <cstdio>
+#include <vector>
+using namespace std;
+
+int solve(vector<int> caminho, int n) {
+	int atual = caminho.back(), ans = 0;
+	if(atual + 1 <= n) {
+		caminho.push_back(atual+1);
+		ans += solve(caminho, n); // deu um passo, faça função 1 passo e função dois passos
+		caminho.pop_back();
+	}
+	if(atual + 2 <= n) {
+		caminho.push_back(atual+2);
+		ans += solve(caminho, n);  // deu dois passo, faça função 1 passo e função dois passos
+		caminho.pop_back(); // pop_back literalmente para não adicionar ele antes de alcançar n?
+	}
+	if(atual == n) ++ans;
+	return ans;
+}
+
+int main() {
+	int n; scanf("%d", &n);
+	printf("%d\n", solve({1}, n));
+}
+
+// pura força bruta, mas muito bem feito
+
+Para acelerar com DP:
+Sabendo que não importa qual foi a maneira que chegamos no degrau i, pois, partindo do degrau i, sempre existirá a mesma quantidade de maneiras de se chegar ao degrau n.
+
+Desse modo podemos definir uma função que tem como parâmetro somente o último degrau visitado e retornará a quantidade de maneiras de chegar ao degrau n partindo do degrau atual.
+
+A transição de uma DP é o conjunto de possibilidades que temos que considerar para transitar de um estado para o outro.
+
+Pode ser interessante imaginar o processo de construção da DP como pegar o problema original inteiro, quebrá-lo em pedaços menores e mais fáceis de lidar (os estados), e assim construir as pontes entre esses estados (a transição). Caso você já tenha estudado grafos, esse modo de ver um problema de programação dinâmica se assemelha a um tipo de grafo especial, chamado de DAG, que significa Directed Acyclic Graph, ou Grafo Acíclico Direcionado. Isso está completamente correto, pois a maioria das DPs podem ser representadas como esses grafos especiais e vice-versa, porém quase nunca é otimo visualizar dessa maneira na prática, já que se só virmos o grafo será mais difícil de encontrar propriedades que nos permitam otimizar a DP.
+
