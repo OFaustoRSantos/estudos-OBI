@@ -11,22 +11,29 @@ bool cmp(int a, int b){
 // a melhor função: struct >>>
 
 // A lista tem que estar sorted
-void binary_search(vector<int> list, int n_to_search){
-    bool found = false;
-    int i = list.size()/2;
-    int ref = list.size()/2;
-    int half = i;
-    while (found == false){
-        if(list[i] == n_to_search){
-            found = true;
-        }
-        else if (list[i] < n_to_search){
-            i += (list.size() -i)/2;
-        } else {
-            
-        }
-        
+int binary_search(vector<int> list, int target){
+    int left = 0;
+    int right = list.size() - 1;
+
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (list[mid] == target)
+            return mid;
+
+        if (list[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
     }
+
+    return -1;
+}
+
+// bubble_sort:
+int bubble_sort(vector<int> list){
+    int pos_i = 0;
+    
 
 }
 
