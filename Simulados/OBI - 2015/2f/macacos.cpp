@@ -1,12 +1,15 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
+
+// errado não sei porque.
 
 struct tree{int position; int height;};
 vector<tree> trees;
 
-bool comp(tree a, tree b){
-    return a.postion < b.position
+bool comp(tree a, tree b){ 
+    return a.position < b.position;
 }
 // retorna true se a é antes de b, logo acima está correto.
 
@@ -19,24 +22,44 @@ int main(){
         cin >> new_tree.height;
         
         trees.push_back(new_tree);
-        
-    }
+   }
     // sort
-
     sort(trees.begin(), trees.end(), comp);
+    // sort está correto
     // menor quantidade de pulos que OBI deve dar para ir da primeira até a ultima arvore
     int actual_tree = 0;
     int jumps = 0;
     int jump_dist=1;
     int max_jump = 0;
     bool pulavel = true;
-    while(actual_tree < trees.size()-1){
-        // 
-        for(int i =0; i < jump_dist; i++){
-            if((tree[actual_tree+i].height - tree[actual_tree].height)/i <= (tree[actual_tree+jump_dist].height - tree[actual_tree].height)/jump_dist){
-                
+    bool reach_end = false;
+    while(!reach_end){
+        cout << "At: " << actual_tree << "Jump_dist_at= " << jump_dist << endl;
+        if(actual_tree == (trees.size()-1)){
+            reach_end = true;
+        } else if (actual_tree + jump_dist > (trees.size()-1)){
+            jumps++;
+            reach_end = true;
+            break;
+        }
+        for(int i=1; i < jump_dist; i++){
+            cout << "teste usando i = " << i << endl;
+            cout << trees[actual_tree].height << trees[actual_tree+i].height;
+
+            if(trees[actual_tree].height <= trees[actual_tree+jump_dist].height){
+                if((trees[actual_tree+i].height - trees[actual_tree].height)/i <= (trees[actual_tree+jump_dist].height - trees[actual_tree].height)/jump_dist){
+                    
+                } else {
+                    pulavel = false;
+                    break;
+                }
             } else{
-                pulavel = false;
+                if((trees[actual_tree+i].height - trees[actual_tree].height)/i >= (trees[actual_tree].height - trees[actual_tree+jump_dist].height)/jump_dist){
+                    
+                } else {
+                    pulavel = false;
+                    break;
+                }
             }
         }
         
@@ -46,8 +69,9 @@ int main(){
         else {
             max_jump = jump_dist--;
             actual_tree += max_jump;
-            jump_dust = 1;
+            jump_dist = 1;
             jumps++;
+            pulavel = true;
         }
 
     }
