@@ -75,3 +75,42 @@ int main(){
         cout << num_invertido[i] << " ";
     }
 }
+
+/*
+A forma clássica de resolver
+
+A solução usada em competições é:
+
+Alinhar os dois números pela direita (os bits menos significativos).
+Percorrer de trás para frente.
+Manter uma variável carry.
+Calcular:
+soma = bitA + bitB + carry
+resposta = soma % 2
+carry = soma / 2
+No final, remover zeros à direita da representação (lembrando que a representação usa o menor número possível de bits, então o último bit deve ser 1).
+
+Esse padrão é simples, linear (O(max(M,N))) e não sofre com problemas de precisão.
+*/
+
+/*
+//Solução Chat:
+int i = M.size()-1;
+int j = N.size()-1;
+int carry = 0;
+
+while(i>=0 || j>=0){
+    bitM =
+    (i>=0)? M[i] : 0;
+    bitN =
+    (j>=0)? N[j] : 0;
+    // o que isso quer dizer?
+    soma = bitM + bitN + carry;
+    reposta.push_back(soma%2);
+    carry = soma/2
+}
+*/
+
+/*
+
+*/
