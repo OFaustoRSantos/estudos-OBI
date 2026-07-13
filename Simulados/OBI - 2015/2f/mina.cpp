@@ -62,3 +62,66 @@ void search(int dis_at, position position_at, vector<vector<int>>& matrix, vecto
     }
     
 }
+
+
+/* 
+===========================================
+ Correção + Comentários: dia 9/7 - ChatGPT
+===========================================
+Matrix Quadrada (NxN)
+Objetivo: 0,0 até o N-1, N-1
+
+Possiveis formas: BFS, 0-1 BFS, Dijkstra
+
+Quando você vê um problema de caminho mínimo, pergunte sempre:
+
+| As arestas têm peso?
+- Não → normalmente BFS.
+| Os pesos são apenas 0 e 1?
+- Sim → 0-1 BFS (ou Dijkstra, se você ainda não conhece 0-1 BFS).
+| Os pesos são quaisquer valores não negativos?
+- Sim → Dijkstra.
+| Existem pesos negativos?
+-  Sim → Dijkstra não serve; aí entram algoritmos como Bellman-Ford ou Floyd-Warshall, dependendo do problema.
+
+===========================
+É um problema de caminho?
+
+        │
+        ▼
+Todos os movimentos têm custo igual?
+
+        │
+   Sim ─────► BFS
+
+        │
+       Não
+        │
+        ▼
+
+Os custos são apenas 0 e 1?
+
+        │
+   Sim ─────► 0-1 BFS
+
+        │
+       Não
+        │
+        ▼
+
+Todos os pesos são ≥ 0 ?
+
+        │
+   Sim ─────► Dijkstra
+
+        │
+       Não
+        │
+        ▼
+
+Bellman-Ford
+
+
+Para encontrar mais informações, e a estrutura de cada algoritimo olhar -> Algor/graphs/search_on_graphs.cpp
+
+*/
