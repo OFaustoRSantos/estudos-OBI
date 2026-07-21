@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-// 100%
+// 100% - corrigido
 
 // representação Obi-2015
 // valores positivos menores que um
