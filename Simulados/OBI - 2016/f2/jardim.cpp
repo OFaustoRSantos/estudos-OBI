@@ -130,3 +130,62 @@ int main(){
 }
 
 // Proxima vez criar funções
+
+
+// Excelente, só errei no teste do ponto médio:
+/*
+O teste do ponto médio está errado:
+Você escreveu
+if((P2+P3)/2 != (P2+P3)/2)
+Percebe?
+
+Você comparou o mesmo segmento consigo.
+Na prática esse if nunca entra.
+Era para comparar
+    P2P3 com P4P5.
+Esse é um bug.
+*/
+/* Além disso errei a ultima condição -> era para fazer um produto vetorial
+Você fez
+P1P6>P1P4
+
+Mas essa condição não aparece no enunciado.
+
+O enunciado diz
+P1 e P6 ficam em lados opostos da reta.
+Isso é completamente diferente.
+
+É necessário usar orientação (produto vetorial).
+Esse é justamente o pedaço mais difícil do problema.
+
+*/
+/* Ideia é saber um pouco mais de geometria analitica -> Produto escalar e produto vetorial:
+
+Perpendicularidade
+Você verificou usando Pitágoras.
+
+Funciona.
+Mas o jeito geométrico seria
+
+Produto escalar = 0.
+Muito mais elegante.
+
+*/
+
+/*
+Preciso criar funções:
+dist2()
+
+dot()
+
+cross()
+
+midpoint()
+
+collinear()
+
+*/
+
+/*
+Pontuação 85-90%
+*/

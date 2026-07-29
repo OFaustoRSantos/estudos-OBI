@@ -90,3 +90,5 @@ int main(){
 
 
 }
+
+// 100% correto - bem obvio

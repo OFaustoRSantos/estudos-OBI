@@ -1,3 +1,4 @@
+/* - Modo como fiz, completamente errado se quer compila - 0/100
 #include <vector>
 #include <set>
 #include <stack>
@@ -13,41 +14,31 @@ using namespace std;
     os numeros pares da subsequencia e os impares devem estar em ordem crescente
     Procurar caminho de maior tamanho
 */
-
-int max_distance = 0;
+/*
 void DFS(int distancia, int vertice_at, int last_par, int last_impar, int inicio);
 
 vector<vector<int>> adj;
+vector<int> max_tamanhos;
 
 int main(){
 
     int N, M;
-    vector<int> inicios;
     cin >> N >> M;
 
+    adj.assign(N,vector<int>());
+
+    max_tamanhos.assign(N,0);
+
     
-    for(int i =0; i<N;i++){
-        adj.push_back({-1});
-    }
     for(int i=0; i<M;i++){
         int A,B;
         cin >> A >> B;
-        if(adj[A][0] == -1){
-            adj[A].pop_back();   
-            adj[A].push_back(B);
-            inicios.push_back(A);
-        } else{
-            adj[A].push_back(B);
-            inicios.erase(remove(inicios.begin(), inicios.end(),A), inicios.end());
-        }
-        if(adj[B][0] == -1){
-            adj[B].pop_back();
-            adj[B].push_back(A);
-            inicios.push_back(B);
-        } else{
-            adj[B].push_back(A);
-            inicios.erase(remove(inicios.begin(), inicios.end(),B), inicios.end());
-        }
+        
+        adj[A].push_back(B);
+        
+        
+        adj[B].push_back(A);
+          
     }
     // matrix de adjacencia montada
     /* - tentei fazer assim não consegui, desisti
@@ -82,39 +73,47 @@ int main(){
         }
     }
     */
+/*
     // modo como farei
-    for(int i : inicios){
-        DFS(1,i, 0, 0, i);
+    for(int i=0; i<N;i++){
+        if(i%2 == 0)
+        DFS(0,i, i, -1, i);
+        else 
+        DFS(0,i, -1, i, i);
     }
     // no maximo terei que colocar para o i começar em todos os possíveis,
-    cout << max_distance << endl;
+    for(int i=0; i<N;i++){
+        cout << max_tamanhos[i] << " ";
+    } // ou posso colocar no de cima
+    
+    cout << endl;
     return 0;
 }
+*/
 
 // Não acredito que terão circulos, caso tiver a ideia do inicio não funcionará, e terei que adicionar no DFS um int ultimo_vertice. Para evitar ficar dando voltas infinitas (embora eu ache que o last_impar e o last_par já resolvem isso)
-
+// colocar o inicio não faz diferença agora que to pensando, pois a logica de last_par/last_impar, impede voltar
+/*
 void DFS(int distancia, int vertice_at, int last_par, int last_impar, int inicio){
     distancia++;
-    if(distancia > max_distance){
-        max_distance = distancia;
+    if(distancia > max_tamanhos[inicio]){
+        max_tamanhos[inicio] = distancia;
     }
     for(int i : adj[vertice_at]){
         // para não ficar repetindo - indo e voltando
-        if( i != inicio){
+        
             if(i%2 == 0){
                 if(i>last_par){
-                    last_par=i;
-                    inicio=vertice_at;
-                    DFS(distancia, i, last_par, last_impar, inicio);
+                    DFS(distancia, i, i, last_impar, inicio);
                 }
             }
             else{
                 if(i>last_impar){
-                    last_impar = i;
-                    inicio=vertice_at;
-                    DFS(distancia, i, last_par, last_impar, inicio);
+                    DFS(distancia, i, last_par, i, inicio);
                 }
             }
-        }   
+          
     }
 }
+*/
+// Feedback gemini -> Fiz um PÉSSIMO DFS, nem mesmo compila, Ideal é usar sistema de memoria

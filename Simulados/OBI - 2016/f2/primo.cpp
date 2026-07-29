@@ -55,3 +55,38 @@ int main(){
     cout << n_primos << endl;
 }
 
+// certo - mas complexo demais
+
+// aproximadaments 70-80% com sorte, como nessa 2° fase nn costuma ter time limit, poderia ser possível 100%
+
+
+// Lógica bem mais simples é possível:
+/*
+Ideia da solução (Inclusão-Exclusão):
+
+Queremos contar quantos números de 1 até N NÃO são divisíveis
+por nenhum dos K primos fornecidos.
+
+Ao invés de testar cada número (O(N)), contamos o complemento:
+
+    resposta = N - (quantidade divisível por pelo menos um primo)
+
+Para isso usamos o Princípio da Inclusão-Exclusão:
+
+- Somamos os múltiplos de cada primo.
+- Subtraímos os múltiplos dos produtos de cada par de primos.
+- Somamos novamente os produtos de cada trio.
+- E assim por diante, alternando os sinais.
+
+Como os números da lista são primos distintos, o MMC de um subconjunto
+é simplesmente o produto de seus elementos.
+
+Apesar de existirem 2^K subconjuntos, a busca pode ser podada:
+assim que o produto ultrapassar N, nenhum superconjunto contribuirá
+(com N/produto = 0). Como o produto de primos cresce muito rapidamente,
+o número de subconjuntos realmente explorados é pequeno, tornando a
+solução viável para N <= 10^9 e K <= 40.
+*/
+
+
+// Prova nn queria força bruta
