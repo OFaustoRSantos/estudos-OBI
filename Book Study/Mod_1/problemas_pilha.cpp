@@ -103,3 +103,166 @@ string simplify_path_dir(string original_path){
     return saida;
 }
 
+int maior_ret_histo(){
+    // Não soube resolver
+
+    int N; // n de terrenos
+
+    cin >> N;
+    
+    // cada terreno tem 1 metro de largura
+    int area_max = 0;
+    vector<int> alturas;
+    for(int i=0;i<N;i++){
+        int alt_at;
+        cin >> alt_at;
+        // para cada altura precisamos saber até onde ela vai cescer para direita, e até quanto vai crescer para esquerda
+        alturas.push_back(alt_at);
+    }
+    // para cada barra, calcular:
+    // primeiro menor a esqueda, primeiro menor a direita
+    // calculo área, atualiza resposta
+    // força bruta
+    for(int i=0; i<N;i++){
+        int area_at;
+        int right = 0;
+        int left = 0;
+
+        int r_at = i; int l_at = i;
+        while(right == 0){
+            if(r_at == N-1){
+                right = r_at;
+            }
+            if(alturas[r_at] > alturas[i]){
+                r_at++;
+            } else{
+                right = r_at;
+            }
+        } while(left == 0){
+            if(l_at == 0){
+                left = l_at;
+            }
+            if(alturas[l_at] > alturas[i]){
+                l_at--;
+            } else{
+                left = l_at;
+            }
+        }
+
+        int largura = right - left - 1;
+        area_at = largura * alturas[i];
+        if (area_at > area_max){
+            area_max = area_at;
+        }
+    }
+    /*
+    Em vez de perguntar
+    "Para esta barra, qual é a primeira menor?"
+
+    fazemos a pergunta inversa.
+    "Esta barra acabou de encontrar a primeira menor de quem?"
+    */
+
+    //pseudo código
+    /*
+    pilha vazia
+
+para i = 0 até N-1
+
+    enquanto a pilha não estiver vazia
+          e altura[topo] >= altura[i]
+
+          barra = topo
+          pop()
+
+          direita = i
+
+          esquerda = topo da pilha
+                     (ou -1 se vazia)
+
+          calcula área
+
+    push(i)
+    */
+
+    long long areaMax = 0;
+    stack<int> pilha;
+
+    for (int i = 0; i < N; i++) {
+
+        // Enquanto a barra atual é menor que a do topo
+        while (!pilha.empty() && alturas[pilha.top()] > alturas[i]) {
+
+            int indice = pilha.top();
+            pilha.pop();
+
+            long long altura = alturas[indice];
+
+           // A barra atual foi quem interrompeu
+            // o crescimento.
+            int direita = i;
+
+            // Depois do pop:
+            //
+            // topo ---> primeira menor esquerda
+            //
+            int esquerda;
+
+            if (pilha.empty())
+                esquerda = -1;
+            else
+                esquerda = pilha.top();
+
+            //-----------------------------------
+            // Calcula largura
+            //-----------------------------------
+
+            int largura = direita - esquerda - 1;
+
+            //-----------------------------------
+            // Área
+            //-----------------------------------
+
+            long long area = altura * largura;
+
+            areaMax = max(areaMax, area);
+        }
+
+        //-----------------------------------
+        // Empilha a barra atual
+        //-----------------------------------
+
+        pilha.push(i);
+    }
+
+    //-----------------------------------
+    // Barras que nunca encontraram uma
+    // menor à direita.
+    //-----------------------------------
+
+    while (!pilha.empty()) {
+
+        int indice = pilha.top();
+        pilha.pop();
+
+        long long altura = alturas[indice];
+
+        int direita = N;
+
+        int esquerda;
+
+        if (pilha.empty())
+            esquerda = -1;
+        else
+            esquerda = pilha.top();
+
+        int largura = direita - esquerda - 1;
+
+        long long area = altura * largura;
+
+        areaMax = max(areaMax, area);
+    }
+
+    cout << areaMax << endl;
+    
+}

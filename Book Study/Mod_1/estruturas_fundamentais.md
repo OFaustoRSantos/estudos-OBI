@@ -19,7 +19,7 @@ Ou seja:
 
 Em vez de procurar, a pilha já "guarda" o candidato mais recente pendente, que
 é sempre o certo a fechar primeiro.
-
+ 
 ### Funções da stack
 
 push(x) → coloca x no topo
@@ -83,7 +83,8 @@ salve com top() antes de dar pop().
 (Feito dia 13/7)
 (Score: _/100)
 3. Maior retângulo em histograma — usa monotonic stack (difícil)
-(Feito dia 13/7)
+(Feito dia 27/7)
+// Não consegui fazer
 (Score: _/100)
 
 ##### Desafio do problema 2. feito pelo gemini
@@ -154,6 +155,104 @@ O comprimento da string path será entre 1 e 3000.
 path consiste em letras (maiúsculas e minúsculas), números, pontos ., barras / ou sublinhados _.
 
 path sempre começa com uma barra /.
+
+##### Desafio problema 3. Feito pelo gemini
+
+Desafio: O Maior Armazém
+
+Uma cidade deseja construir um enorme armazém sobre uma sequência de terrenos.
+
+Cada terreno possui largura igual a 1 metro, mas alturas diferentes devido às restrições do relevo.
+
+O engenheiro só pode construir um armazém retangular cuja altura seja limitada pelo menor terreno escolhido.
+
+Por exemplo, se escolher os terrenos
+
+5 4 7
+
+o armazém terá altura 4 e largura 3, portanto área 12.
+
+Seu trabalho é descobrir qual é a maior área possível.
+
+Entrada
+
+A primeira linha contém um inteiro
+
+N
+
+representando o número de terrenos.
+
+A segunda linha contém
+
+N
+
+inteiros
+
+h1 h2 ... hN
+
+representando a altura de cada terreno.
+
+Saída
+
+Imprima apenas um inteiro:
+
+A maior área de um retângulo contínuo que pode ser formado.
+
+Restrições
+1 ≤ N ≤ 200000
+1 ≤ hi ≤ 10^9
+Exemplos
+Exemplo 1
+
+Entrada
+
+7
+2 1 5 6 2 3 1
+
+Saída
+
+10
+Exemplo 2
+
+Entrada
+
+5
+5 5 5 5 5
+
+Saída
+
+25
+Exemplo 3
+
+Entrada
+
+6
+6 5 4 3 2 1
+
+Saída
+
+12
+Exemplo 4
+
+Entrada
+
+8
+2 4 2 1 10 6 10 2
+
+Saída
+
+18
+Limite de tempo
+
+1 segundo
+
+Dicas (como um problema da OBI)
+
+Você deve pensar em:
+
+O que impede um retângulo de crescer para a esquerda?
+O que impede um retângulo de crescer para a direita?
+Para cada barra, imagine que ela seja a menor altura do retângulo.
 
 #### Padrões
 

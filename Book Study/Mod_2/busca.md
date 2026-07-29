@@ -474,3 +474,302 @@ int bfs() {
 
 Resolver problemas de menor caminho quando as arestas tem peso 1 ou 0, sem usar dijkstra (+complexo)
 
+### Ideia
+
+Se todas as arestas pesam 0 ou 1, você ainda quer processar nós em ordem de distância crescente, mas uma fila comum não garante isso quando há arestas de peso 0 misturadas com peso 1
+
+A solução: use um deque. Ao relaxar uma aresta de peso 0, insira o vizinho na frente do deque (ele "empata" com o nó atual); ao relaxar uma aresta de peso 1, insira no fim (ele fica uma "camada" atrás).
+
+Dijkstra resolve esse ttipo de problema, mas é mais lento (O(E log V)) do que necessário; 0-1 BFS resolve em O(V + E).
+
+Como o vertice é sempre 0 ou 1, não tem a necessidade de fazer um "sort" com a priority queue, basta joga-lo pro fim da fila generalizadamente.
+
+### Estrutura
+
+0-1 bfs(origem):
+    dist[origem] = 0
+    deque.push_front(origem)
+    enquanto deque não vazio:
+        u = deque.pop_front()
+        para cada aresta (u, v, peso):
+            se dist[u] + peso < dist[v]:
+                dist[v] = dist[u] + peso
+                se peso == 0: deque.push_front(v)
+                senão: deque.push_back(v)
+
+### Implementação usando stl
+
+#include <deque>
+vector<int> dist(n + 1, INT_MAX);
+deque<int> dq;
+
+dist[origem] = 0;
+dq.push_front(origem);
+
+while (!dq.empty()) {
+    int u = dq.front(); dq.pop_front();
+    // Não fazer isso é um erro classico
+
+    for (auto [v, peso] : adj[u]) { // adj[u] = {(vizinho, peso 0 ou 1)}
+        // Exige lista de adjacencia
+        if (dist[u] + peso < dist[v]) {
+            dist[v] = dist[u] + peso;
+            if (peso == 0) dq.push_front(v);
+            else dq.push_back(v);
+        }
+    }
+}
+
+### Visualização
+
+Deque, processando peso 0 → entra na frente:
+[v0] [u] [x] [y]
+  ↑ empata com u
+
+Processando peso 1 → entra atrás:
+[u] [x] [y] [v1]
+              ↑ fica para depois
+
+### Erros Clássicos-0_1 BFS
+
+- Usar `queue` comum em vez de `deque` (perde a garantia de ordem)
+- Inverter a lógica (colocar peso 1 na frente e peso 0 atrás)
+- Esquecer de permitir múltiplas entradas do mesmo nó no deque (assim como no Dijkstra, pode ser necessário relaxar mais de uma vez)
+- Usar 0-1 BFS quando os pesos não são só 0 e 1 (nesse caso, precisa de Dijkstra)
+
+### Problemas clássicos-0-1 BFS
+
+1. Grid onde mover custa 0, mas "quebrar parede" custa 1 (médio) // Bem easy agora depois de ver a ideia
+2. Problemas de "número mínimo de trocas" onde a troca custa 1 e mover livre custa 0 (médio/difícil)
+
+### Outros problemas
+
+- CSES: problemas de grid com custo variável
+- Codeforces: busca por tag "0-1 bfs"
+
+### Cheatsheet-0-1 BFS
+
+```cpp
+deque<int> dq;
+dist[origem] = 0;
+dq.push_front(origem);
+while (!dq.empty()) {
+    int u = dq.front(); dq.pop_front();
+    for (auto [v, peso] : adj[u]) {
+        if (dist[u] + peso < dist[v]) {
+            dist[v] = dist[u] + peso;
+            peso == 0 ? dq.push_front(v) : dq.push_back(v);
+        }
+    }
+}
+```
+
+### Desafios-0-1 BFS
+
+1. Grid onde é permitido "quebrar" até K paredes; ache o menor custo até o destino.
+// Fiz um leetcode recente com isso
+2. Adapte o BFS de labirinto do módulo 2.B para aceitar pesos 0/1.
+3. Compare o tempo de execução de 0-1 BFS vs Dijkstra no mesmo problema.
+
+### Mini-projeto - 0-1 BFS
+
+Simule um jogo onde mover para célula livre é grátis, mas "abrir uma porta trancada" custa 1 unidade de energia (limitada); ache o caminho de menor custo de energia.
+
+### Checklist de maestria 0-1 BFS
+
+**Conhecimento**
+
+- [ ] Sei explicar por que 0-1 BFS funciona com deque
+- [ ] Sei quando 0-1 BFS não se aplica (pesos fora de {0,1})
+
+**Implementação**
+
+- [ ] Consigo implementar 0-1 BFS do zero
+
+**Reconhecimento**
+
+- [ ] Reconheço "pesos 0 e 1" como sinal de 0-1 BFS
+
+**Competição**
+
+- [ ] Resolvi pelo menos 1 problema de 0-1 BFS
+
+## Dijkstra
+
+Resolver menor caminho em grafos com pesos positivos quaisquer, incluindo reconstrução de caminho.
+
+- Usa priority_queue, então é um tipo de guloso
+
+### Estrutura do algoritmo - Dijkstra
+
+```txt
+dijkstra(origem):
+    dist[todos] = infinito // para ser atualizado
+
+    dist[origem] = 0
+    pq.push((0, origem))
+    enquanto pq não vazia:
+        (d, u) = pq.pop() // menor distância primeiro
+        se d > dist[u]: continue // entrada desatualizada, tem que ser relaxada
+        para cada aresta (u, v, peso):
+            se dist[u] + peso < dist[v]:
+                dist[v] = dist[u] + peso
+                pq.push((dist[v], v))
+```
+
+### Implementação manual (conceito de relaxamento)
+
+"Relaxar" uma aresta `(u, v, peso)` significa: se ir até `u` e depois para `v` for mais barato do que a melhor distância conhecida até `v`, atualize `dist[v]`.
+
+```cpp
+bool relax(int u, int v, int peso, vector<long long>& dist) {
+    if (dist[u] + peso < dist[v]) {
+        dist[v] = dist[u] + peso;
+        return true; // houve melhoria
+    }
+    return false;
+}
+```
+
+### Implementação STL completa
+
+```cpp
+#include <queue>
+const long long INF = 1e18;
+
+vector<vector<pair<int,int>>> adj(n + 1); // adj[u] = {(vizinho, peso)}
+vector<long long> dist(n + 1, INF);
+vector<int> parent(n + 1, -1); // lógica para repath
+
+priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+
+dist[origem] = 0;
+pq.push({0, origem});
+
+while (!pq.empty()) {
+    auto [d, u] = pq.top(); pq.pop();
+    // padrão
+
+    if (d > dist[u]) continue; // entrada desatualizada, ignore
+
+    for (auto [v, peso] : adj[u]) {
+        if (dist[u] + peso < dist[v]) {
+            dist[v] = dist[u] + peso;
+            parent[v] = u;
+            pq.push({dist[v], v});
+        }
+    }
+}
+
+// Reconstrução do caminho até um destino:
+vector<int> caminho;
+for (int at = destino; at != -1; at = parent[at]) caminho.push_back(at);
+reverse(caminho.begin(), caminho.end());
+```
+
+### Visualizações - 0-1 BFS
+
+```txt
+Grafo com pesos:
+   (2)      (5)
+A ----- B ----- C
+ \             /
+  \___(10)____/
+
+dist[A]=0
+dist[B]=2 (via A)
+dist[C]=7 (via A→B→C, melhor que 10 direto)
+```
+
+### Erros clássicos
+
+- Usar `int` em vez de `long long` para distâncias (overflow em grafos grandes)
+- Esquecer o `if (d > dist[u]) continue;` (processar entradas desatualizadas gera trabalho extra, embora normalmente não gere resposta errada, é um desperdício grande de tempo)
+- Usar Dijkstra com **pesos negativos** — não funciona corretamente; nesse caso use Bellman-Ford
+- Esquecer de inicializar `dist[]` com infinito
+- Esquecer o min-heap (`greater<>`) — usar o `priority_queue` padrão (max-heap) inverte a lógica
+
+### Problemas clássicos - Dijkstra
+
+1. Menor caminho de A até todos os outros nós (fácil/médio)
+2. Menor caminho com reconstrução de rota (médio)
+3. Menor caminho com múltiplas restrições (ex: menor caminho entre os K mais baratos) (difícil)
+
+### Outros problemas - Dijkstra
+
+- CSES: "Shortest Routes I" e "Shortest Routes II"
+- Codeforces: buscar por tag "shortest-paths
+
+### Cheatsheet - Dijkstra
+
+```cpp
+priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+dist[origem] = 0;
+pq.push({0, origem});
+while (!pq.empty()) {
+    auto [d, u] = pq.top(); pq.pop();
+    if (d > dist[u]) continue;
+    for (auto [v, peso] : adj[u])
+        if (dist[u] + peso < dist[v]) {
+            dist[v] = dist[u] + peso;
+            pq.push({dist[v], v});
+        }
+}
+```
+
+### STL — Dijkstra em grid (custo de entrar em cada célula)
+
+```cpp
+priority_queue<tuple<long long,int,int>, vector<tuple<long long,int,int>>, greater<>> pq;
+dist[si][sj] = 0;
+pq.push({0, si, sj});
+while (!pq.empty()) {
+    auto [d, i, j] = pq.top(); pq.pop();
+    if (d > dist[i][j]) continue;
+    for (int dir = 0; dir < 4; dir++) {
+        int ni = i+dx[dir], nj = j+dy[dir];
+        if (ni<0||ni>=n||nj<0||nj>=m) continue;
+        if (grid[ni][nj]==1) continue; // parede, se houver
+        long long custo = d + custoEntrar(ni, nj); // custo da célula destino
+        if (custo < dist[ni][nj]) {
+            dist[ni][nj] = custo;
+            pq.push({custo, ni, nj});
+        }
+    }
+}
+```
+
+### Desafios - Dijakstra
+
+1. Implemente Dijkstra e reconstrua o caminho de menor custo.
+2. Adapte Dijkstra para funcionar num grid com custo de entrada por célula.
+3. Compare o resultado de BFS ingênuo vs Dijkstra num grafo com pesos diferentes — mostre onde BFS erra.
+4. Implemente Dijkstra para achar o menor caminho entre dois nós específicos (parando cedo quando o destino é retirado da priority_queue).
+5. Resolva um problema com múltiplas origens em Dijkstra (mesma ideia do multi-source BFS).
+
+### Mini-projeto - Dijkstra
+
+Simule um sistema de rotas de entrega: cidades conectadas por estradas com tempos diferentes; para um pedido, calcule a rota mais rápida do depósito até o cliente e mostre o caminho percorrido.
+
+
+### Checklist de maestria - Dijkstra
+
+**Conhecimento**
+
+- [ ] Sei explicar por que Dijkstra falha com pesos negativos
+- [ ] Sei explicar o papel do "relaxamento" de arestas
+
+**Implementação**
+
+- [ ] Consigo implementar Dijkstra do zero, incluindo reconstrução de caminho
+- [ ] Consigo adaptar Dijkstra para grid
+
+**Reconhecimento**
+
+- [ ] Reconheço "pesos variados/custos diferentes" como sinal de Dijkstra
+- [ ] Sei diferenciar quando usar BFS, 0-1 BFS ou Dijkstra
+
+**Competição**
+
+- [ ] Resolvi pelo menos 2 problemas com Dijkstra
+- [ ] Consigo resolver um problema de Dijkstra em menos de 30 minutos
