@@ -3,6 +3,8 @@
 #include <stack>
 using namespace std;
 
+// Ficou redundante esse documento então abandonarei ele, prefiro ter um dcs por topico tipo problemas pilha, problemas fila etc
+
 void maior_ret_histo();
 
 int main(){
@@ -112,3 +114,27 @@ void maior_ret_histo(){
     }
 
 */
+
+//Outro problema realizado: Leetcode Daily temperatures
+//Bem easy, demorei nem 10 minutos
+
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    // Dado array com temperaturas, ele quer que eu retorne um array que contenha a data do proximo dia mais quente
+    // logo se T[i] > T[pilha.top()] {}
+        stack<int> pilha;
+        vector<int> answer;
+        // Definindo que todo o answer seja zero por default;
+        answer.assign(temperatures.size(),0); 
+        for(int i=0;i<temperatures.size(); i++){
+            while(!pilha.empty() && temperatures[i]>temperatures[pilha.top()]){
+                int indice = pilha.top();
+                pilha.pop();
+
+                answer[indice] = i - indice;
+            }
+
+            pilha.push(i);
+        }
+
+        return answer;
+}
