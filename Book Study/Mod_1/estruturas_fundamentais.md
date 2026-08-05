@@ -424,8 +424,28 @@ Heap (max, como árvore):
 3. K-ésimo maior elemento com stream de números (priority queue) — médio
 4. Menor caminho com pesos (Dijkstra) — difícil
 
-### Padrões
+#### Desafio Gemini Problema 3: O Monitor de Latência de Jogos
 
+Você está desenvolvendo o sistema de análise de desempenho de um jogo online competitivo. O servidor precisa monitorar em tempo real as **maiores latências (pings)** dos jogadores para identificar picos de instabilidade.
+
+Sua tarefa é criar uma estrutura que consiga registrar cada novo ping medido e, instantaneamente, informar qual é o **3º pior (maior) ping** registrado até aquele momento.
+
+##### Regras do Problema
+
+- O sistema deve ser inicializado sabendo que buscamos o **3º maior elemento** ($k = 3$).
+- O fluxo começa com os pings iniciais: `[45, 90, 120, 75]`.
+- Você deve processar uma sequência de novos pings que chegam um a um: `110`, `85`, `150` e `60`.
+- Para cada novo ping inserido, o sistema deve retornar imediatamente o valor do 3º maior ping atual.
+
+##### Exemplo de Fluxo Esperado
+
+* **Estado inicial:** Pings `[45, 90, 120, 75]`. O 3º maior é **75** (os três maiores são 120, 90, 75).
+* **Adiciona `110`:** O 3º maior vira **90** (maiores: 120, 110, 90).
+* **Adiciona `85`:** O 3º maior continua sendo **90** (maiores: 120, 110, 90).
+* **Adiciona `150`:** O 3º maior vira **110** (maiores: 150, 120, 110).
+* **Adiciona `60`:** O 3º maior continua sendo **110** (maiores: 150, 120, 110).
+
+### Padrões
 
 | Se o enunciado diz... | Pense em... |
 |---|---|

@@ -237,7 +237,7 @@ void min_path_s_peso_ideal() {
     matrix.assign(N, vector<int>(M));
     mat_distancia.assign(N, vector<int>(M, -1));
     // esqueci possibilidade de ter barreira
-    
+
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < M; j++) {
             cin >> matrix[i][j];
@@ -249,4 +249,41 @@ void min_path_s_peso_ideal() {
     BFS(inicio);
 
     cout << mat_distancia[N-1][M-1] << endl;
+}
+
+// Errei horário, tenho mais 20 minutos hoje, vou usa-los para tentar terminar mais um problema do topico filas e ficar devendo o Leetcode e o ultimo problema somente 
+
+// K-ésimo maior elemento com stream de números (priority queue) — médio
+
+
+void mon_lat_jogo(){
+    // maior na frente, ele quer que eu use priority queue, embora me parece mais ineficiente.
+    // minha ideia original era
+
+    
+    priority_queue<int, vector<int>> pq;
+    
+    // Cada novo ping, informar qual o 3° pior (maior ping) registrado até aquele momento
+
+    vector<int> fila_inicial = {45, 90, 120, 75};
+    for(int i : fila_inicial){
+        pq.push(i);
+    }
+    vector<int> prox_numeros = {110, 85, 150, 60};
+
+    vector<int> retirados = {0,0};
+    for(int i : prox_numeros){
+        pq.push(i);
+        for(int i=0; i<2; i++){
+            int temp = pq.top();
+            pq.pop();
+            retirados[i] = temp;
+        }
+        cout << pq.top() << endl;
+        // refazer fila:
+        for(int i : retirados){
+            pq.push(i);
+        }
+    }
+
 }
