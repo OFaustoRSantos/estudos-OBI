@@ -255,11 +255,11 @@ void min_path_s_peso_ideal() {
 
 // K-ésimo maior elemento com stream de números (priority queue) — médio
 
-
-void mon_lat_jogo(){
+// forma nn tão ideal:
+void min_lat_jogo(){
     // maior na frente, ele quer que eu use priority queue, embora me parece mais ineficiente.
     // minha ideia original era
-
+    // Pior que eu pensei na forma mais ideal, mas não coloquei ela
     
     priority_queue<int, vector<int>> pq;
     
@@ -284,6 +284,44 @@ void mon_lat_jogo(){
         for(int i : retirados){
             pq.push(i);
         }
+    }
+
+}
+
+//forma ideal:
+// buguei na logica pq eu pensei 3° maior que o ping que adicionei
+
+void min_lat_jogo_ideal() {
+    int k = 3;
+    // O segredo está aqui: "greater<int>" cria uma MIN-HEAP (menor elemento no topo)
+    priority_queue<int, vector<int>, greater<int>> pq;
+    
+    vector<int> fila_inicial = {45, 90, 120, 75};
+    for(int i : fila_inicial) {
+        pq.push(i);
+        // Se passar do tamanho K, descarta o menor, mantendo apenas os K maiores
+        if(pq.size() > k) {
+            pq.pop();
+        }
+        // unico que importa é o K°
+    }
+    
+    // Imprime o estado inicial (3º maior atual)
+    cout << "Inicial: " << pq.top() << endl; // Deve exibir 75
+
+    vector<int> prox_numeros = {110, 85, 150, 60};
+
+    for(int i : prox_numeros) {
+        pq.push(i);
+        
+        // Se a heap tiver mais de K elementos, removemos o menor
+        if(pq.size() > k) {
+            pq.pop();
+        }
+        
+        // O topo da min-heap de tamanho K é SEMPRE o K-ésimo maior elemento geral.
+        // Custo de tempo: O(1) para ler o topo!
+        cout << "Adicionou " << i << " -> 3º maior: " << pq.top() << endl;
     }
 
 }

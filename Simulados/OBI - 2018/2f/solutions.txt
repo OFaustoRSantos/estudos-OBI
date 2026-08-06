@@ -1,0 +1,252 @@
+Problema Wifi
+
+A primeira pergunta que faço lendo um problema é:
+
+"O que realmente preciso contar?"
+
+Não preciso saber quem contém quem.
+
+Não preciso construir uma árvore.
+
+Não preciso construir um grafo.
+
+Só preciso saber:
+
+quantos retângulos NÃO estão contidos em nenhum outro.
+
+Essa mudança de perspectiva elimina metade do problema.
+
+Primeira observação
+
+Para um retângulo A conter B, precisamos
+
+xmin(A) <= xmin(B)
+xmax(A) >= xmax(B)
+
+ymin(A) <= ymin(B)
+ymax(A) >= ymax(B)
+
+Você percebeu isso corretamente.
+
+Segunda observação
+
+Seu algoritmo faz
+
+cada retângulo
+    compara com todos
+
+Isso custa
+
+O(N²)
+
+Como o limite é apertado (0,4 s), já suspeitamos que a solução oficial seja aproximadamente
+
+O(N log N)
+
+Então fazemos a pergunta clássica:
+
+Existe alguma forma de ordenar para nunca mais precisar olhar para trás?
+
+Essa pergunta aparece em MUITOS problemas da OBI.
+
+A ideia da solução
+
+Vamos definir cada retângulo por
+
+xmin
+xmax
+ymin
+ymax
+
+Agora ordenamos por
+
+xmin crescente
+
+se empatar
+xmax decrescente
+
+Por que?
+
+Imagine
+
+A começa antes de B.
+
+Então A é o único que poderia conter B.
+
+Nunca o contrário.
+
+Ou seja,
+
+depois da ordenação
+
+ninguém à direita pode conter alguém à esquerda.
+
+Isso reduz muito o problema.
+
+# Ou seja, faça um bom comp
+
+sempre coloque o #include <bits/stdc++.h>
+
+e o 
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    O que aprender em cada parte
+1. Normalização
+xmin=min(...)
+Aprenda
+
+Sempre normalize os dados.
+
+Problemas que usam isso:
+
+Geometria
+Intervalos
+Sweep Line
+2. Comparator
+sort(...,cmp)
+
+Esse talvez seja o maior aprendizado do problema.
+
+Você ainda usa pouco comparadores.
+
+Na OBI eles aparecem o tempo inteiro.
+
+Estude bastante:
+
+ordenar por duas chaves
+ordenar crescente/decrescente
+tie()
+lambda
+
+Problemas típicos:
+
+Interval Scheduling
+Skyline
+Sweep Line
+Eventos
+3. Sweep Line
+
+Depois do sort,
+
+nunca voltamos.
+
+Só caminhamos.
+
+Esse é um dos padrões mais importantes da programação competitiva.
+
+Problemas clássicos:
+
+união de intervalos
+skyline
+closest pair
+interseção de segmentos
+cobertura de intervalos
+salas de aula
+antenas
+4. Manter informação do passado
+maiorX
+
+maiorY
+
+menorY
+
+Esse padrão aparece MUITO.
+
+Você não guarda todos os elementos.
+
+Só guarda
+
+o suficiente para decidir o próximo.
+
+Problemas:
+
+Prefix Maximum
+Prefix Minimum
+Kadane
+LIS
+Greedy
+5. Atualização
+maior=max(...)
+
+Isso é outro padrão.
+
+Percorrer mantendo a melhor resposta até agora.
+
+Você verá isso em
+
+Greedy
+DP
+Sweep
+Dois ponteiros
+Prefixos
+O que estudar depois deste problema
+
+Na minha opinião, este problema revela exatamente a sua próxima trilha de estudos:
+
+⭐⭐⭐⭐⭐ Comparator (sort com múltiplas chaves)
+
+⭐⭐⭐⭐⭐ Sweep Line
+
+⭐⭐⭐⭐ Prefix Max / Prefix Min
+
+⭐⭐⭐⭐ Intervalos
+
+⭐⭐⭐⭐ Geometria básica (comparações entre retângulos e segmentos)
+
+
+
+Exercicio fuga:
+
+ler entrada
+
+construir percurso em serpentina
+
+adaptar começo
+adaptar final
+
+contar número de células visitadas
+
+imprimir resposta
+
+O que aprender deste problema
+
+Na minha opinião, este problema ensina três lições muito importantes para a Fase 2.
+
+1. Construção (Constructive Algorithms)
+
+Você não procura a resposta.
+
+Você constrói uma configuração válida.
+
+Exemplos clássicos:
+
+labirintos
+tabuleiros
+permutações
+grafos
+árvores
+2. Pensar na estrutura, não nas escolhas
+
+Você pensou
+
+cada armário possui quatro possibilidades
+
+A solução pensa
+
+como deve ser o labirinto final?
+
+Depois os armários são consequência.
+
+Essa inversão de pensamento aparece frequentemente em problemas de construção.
+
+3. Grafo implícito
+
+Não existe um grafo na entrada.
+
+Mas existe um grafo escondido:
+
+vértices = células livres
+arestas = movimentos possíveis
+
+Esse é exatamente o tipo de modelagem que você vem praticando ao estudar BFS.
