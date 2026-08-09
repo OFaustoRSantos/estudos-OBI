@@ -325,3 +325,13 @@ void min_lat_jogo_ideal() {
     }
 
 }
+
+
+// Dijkstra:
+
+
+
+// Sliding Window Maximum:
+
+
+// 

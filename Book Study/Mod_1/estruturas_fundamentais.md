@@ -445,10 +445,10 @@ Sua tarefa é criar uma estrutura que consiga registrar cada novo ping medido e,
 * **Adiciona `150`:** O 3º maior vira **110** (maiores: 150, 120, 110).
 * **Adiciona `60`:** O 3º maior continua sendo **110** (maiores: 150, 120, 110).
 
-### Padrões
+### Padrões - fila
 
 | Se o enunciado diz... | Pense em... |
-|---|---|
+| --- | --- |
 | Processar na ordem de chegada | Queue |
 | Precisa inserir/remover nos dois extremos | Deque |
 | "Sempre pegar o maior/menor disponível até agora" | Priority Queue |
