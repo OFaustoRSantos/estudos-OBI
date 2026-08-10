@@ -67,3 +67,25 @@ int main(){
 }
 
 // Não consegui fazer, uma loucura que estava a cada da minha vo nn conseguindo pensar
+
+
+// Correção com Gemini
+
+/*
+O problema é que, na hora da prova, você ainda não tem um catálogo mental de padrões algorítmicos para reconhecer rapidamente.
+
+Você reconheceu Dijkstra, mas não sabia estruturar
+Grafos + priority_queue + relaxamento
+*/
+
+/*
+Grafo ponderado
++
+pesos positivos
++
+menor caminho
+=
+DIJKSTRA
+
+*/
+
