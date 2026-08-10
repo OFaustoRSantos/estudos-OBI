@@ -13,11 +13,7 @@ int main(){
 
 // problema 1
 // Conte quantas ilhas existem numa grid de terra/água
-vector<vector<int>> matrix; // 0 = Agua. 1 = Terra
-vector<vector<int>> vis; // 0 = Não visitado, 1 = visitado
 
-vector<int> dir_x = {1,-1,0,0};
-vector<int> dir_y = {0,0, 1,-1};
 
 /*
 Lógica que eu queria usar mas não usarei para poder tentar implementar o DFS:
@@ -42,6 +38,14 @@ Se não tiver nenhuma terra visitada ao redor, adicionar 1 ilha.
 int n_ilhas=0;
 
 void ilhas(){
+    vector<vector<int>> matrix; // 0 = Agua. 1 = Terra
+    vector<vector<int>> vis; // 0 = Não visitado, 1 = visitado
+
+    vector<int> dir_x = {1,-1,0,0};
+    vector<int> dir_y = {0,0, 1,-1};
+
+    int n_ilhas=0;
+
     int N, M; // dimensões matrix
 
     cin >> N >> M;
@@ -133,6 +137,8 @@ void ilhas(){
 // tive que mudar de stack para queue, e começou a dar certo, tava mo trampo.
 
 // Porque a stack não estava funcionando?
+// acabava que ela lia as aguas ao lado primeiro então estragava o plano, foi só mudar para fila que funcionou
+// Para manter na stack eu deveria criar uma outra matrix chamada ilha_terra -> e que somente poderá mudar o valor do ponto ao lado se o ponto atual for uma terra.
 
 // 
 
@@ -147,3 +153,9 @@ TTAAA
 */
 
 // não está analisando o 40
+
+
+void grafo_direcionado(){
+
+
+}
