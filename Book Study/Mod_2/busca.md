@@ -214,8 +214,11 @@ $0 \le M \le 2 \times 10^5$
 $1 \le u, v \le N$
 Tempo limite: 1.0s
 Memória limite: 256 MB
+
 Exemplos
+
 Exemplo 1
+
 Entrada:
 
 7 5
@@ -224,17 +227,23 @@ Entrada:
 4 5
 5 6
 6 4
+
 Saída:
 
 3
+
 Exemplo 2
+
 Entrada:
 
 5 0
+
 Saída:
 
 1
+
 Exemplo 3
+
 Entrada:
 
 6 4
@@ -242,6 +251,7 @@ Entrada:
 2 3
 3 4
 4 5
+
 Saída:
 
 5

@@ -4,14 +4,16 @@ using namespace std;
 void ilhas();
 void grafo_direcionado();
 void tam_maior_comp_conexa();
+void flood_fill();
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
     // ilhas();
-    //grafo_direcionado();
-    tam_maior_comp_conexa();
+    // grafo_direcionado();
+    // tam_maior_comp_conexa();
+    flood_fill();
 
 }
 
@@ -270,7 +272,7 @@ void tam_maior_comp_conexa(){
             visitadas[i] = true;
             pilha.push(i);
         }
-        
+
         int tam_caminho_at = 1;
 
 
@@ -299,5 +301,37 @@ void tam_maior_comp_conexa(){
     }
 
     cout << tam_caminho_max << endl;
+
+}
+
+void flood_fill(){
+    // certo era fazer usando RGB, mas gasta mais memória e não tem tanta diferença, só adicionar 
+    // Tem como eu fazer a inserção de uma tolerancia, mas também não acho necessário
+
+    vector<vector<int>> grid;
+    vector<vector<int>> vis;
+
+    int n_quadrados_pintados=0;
+
+    int N, M;
+    // 1° Montar a grid
+    cin >> N >> M;
+
+    grid.assign(N, vector<int>(M, -1));
+    vis.assign(N, vector<int>(M, 0));
+
+    for(int i = 0; i<N; i++){
+        for(int j=0; j<M; j++){
+            int cor_at; cin >> cor_at;
+            grid[i][j] = cor_at;
+        }
+    }
+
+
+    // 2° Escolher ponto para transformar
+
+
+    // 3° Enviar n° de quadrados pintados
+
 
 }
