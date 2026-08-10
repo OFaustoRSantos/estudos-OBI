@@ -2,12 +2,14 @@
 using namespace std;
 
 void ilhas();
+void grafo_direcionado();
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ilhas();
+    // ilhas();
+    grafo_direcionado();
 
 }
 
@@ -154,8 +156,75 @@ TTAAA
 
 // não está analisando o 40
 
-
+// Problema 2 - verificar se um grafo direcionado
 void grafo_direcionado(){
+    vector<vector<int>> adj; // matrix de adjacencia
+    vector<pair<int,int>> vis_ares; 
+    // segundo = inicio de origem
+    
+    vector<bool> recebe_aresta;
 
+    int N,M; // N = numero de vertice, e M = de arestas
+    cin >> N >> M;
+
+    bool tem_ciclo = false;
+
+    adj.assign(N, vector<int>({}));
+    vis_ares.assign(N,{0,-1});
+    recebe_aresta.assign(N,false);
+
+    for(int i =0; i<M; i++){
+        int A, B; // Saida -> Destino, unidirecionado
+        cin >> A >> B;
+
+        adj[A].push_back(B);
+        recebe_aresta[B] = true;
+    }
+
+    // preciso de alguma forma verificar se tem um ponto em que não recebe seta nenhuma -> Inicios
+    // testagem para ver se tem ciclo => testar aresta com stack, se alcançar um lugar já visitado tem ciclo
+
+    stack<int> pilha;
+    // Colocando todos os inicios na fila
+    for(int i=0; i<N; i++){
+        vis_ares[i] = {1,i};
+        pilha.push(i);
+
+        // Preciso fazer o while aqui, pq se não quanto um inicio novo tocar um já visto iria apontar ciclo, sem ser ciclo - mentira farei uma solução que vis_ares só forma ciclo se tiver mesmo pair.second - inicio de origem;
+        while(!pilha.empty()){
+            auto temp = pilha.top();
+            pilha.pop();
+
+            for(int j : adj[temp]){
+                if(vis_ares[j].first == 1){
+                    if(vis_ares[j].second == vis_ares[temp].second){
+                        // mesmo inicio
+                        tem_ciclo = true;
+                        break;
+                    }
+                } else{ 
+                    vis_ares[j] = {1, vis_ares[temp].second};
+                    pilha.push(j);
+                }
+            }
+            if(tem_ciclo){
+                break;
+                // ou só precisava mandar um cout e um return
+            }
+        }
+        if(tem_ciclo){
+            break;
+            // ou só precisava mandar um cout e um return
+        }
+    }
+    
+    if(tem_ciclo){
+            cout << "S" << endl;
+    } else{
+            cout << "N" << endl;
+    }
+    
+
+    
 
 }
