@@ -190,6 +190,84 @@ void dfs(int i, int j) {
 4. Pinte (flood fill) uma região a partir de um pixel, como na ferramenta "balde de tinta". // identico contar ilha
 5. Implemente DFS iterativo e compare a ordem de visita com a versão recursiva. // FILO a versão iterativa
 
+#### Problema 3 Gemini: maior-cluster-servidores
+
+Problema de Busca em Profundidade (DFS) em Grafos de Nível Médio OBI - Maior Componente Conexa
+
+##### Instructions
+O Maior Cluster de Servidores
+Descrição do Problema
+A empresa TecnoRede possui uma infraestrutura composta por $N$ servidores numerados de $1$ a $N$ e $M$ conexões bidirecionais de fibra óptica entre eles. Dois servidores pertencem ao mesmo cluster (componente conexa) se existe pelo menos um caminho de conexões direto ou indireto entre eles.
+
+Devido a uma manutenção programada, a equipe de infraestrutura precisa identificar o tamanho do maior cluster da rede para dimensionar a capacidade de backup necessária. Sua tarefa é determinar a quantidade máxima de servidores presentes em uma única componente conexa.
+
+##### Entrada
+
+A primeira linha da entrada contém dois inteiros $N$ e $M$ ($1 \le N \le 10^5$, $0 \le M \le 2 \times 10^5$), indicando o número de servidores e o número de conexões, respectivamente. As $M$ linhas seguintes contêm, cada uma, dois inteiros $u$ e $v$ ($1 \le u, v \le N$, $u \neq v$), indicando que existe uma conexão bidirecional entre o servidor $u$ e o servidor $v$.
+
+Saída
+Imprima um único inteiro indicando o número máximo de servidores contidos em uma única componente conexa.
+
+Restrições
+$1 \le N \le 10^5$
+$0 \le M \le 2 \times 10^5$
+$1 \le u, v \le N$
+Tempo limite: 1.0s
+Memória limite: 256 MB
+Exemplos
+Exemplo 1
+Entrada:
+
+7 5
+1 2
+2 3
+4 5
+5 6
+6 4
+Saída:
+
+3
+Exemplo 2
+Entrada:
+
+5 0
+Saída:
+
+1
+Exemplo 3
+Entrada:
+
+6 4
+1 2
+2 3
+3 4
+4 5
+Saída:
+
+5
+
+##### Explicação e Dicas de Implementação em C++
+
+Entendimento dos Casos de Teste
+Exemplo 1: O grafo é dividido em 3 componentes: ${1, 2, 3}$ com 3 nós; ${4, 5, 6}$ com 3 nós; e ${7}$ (servidor isolado) com 1 nó. O maior tamanho encontrado é 3.
+Exemplo 2: Sem conexões ($M = 0$), existem 5 componentes com 1 nó cada. A saída é 1.
+Estratégia de Resolução
+Estrutura de Dados: Represente o grafo usando uma lista de adjacência std::vector<std::vector<int>> adj(N + 1).
+Controle de Visitas: Utilize um vetor booleano std::vector<bool> vis(N + 1, false) para garantir que cada nó seja visitado uma única vez.
+
+##### Contagem com DFS:
+
+Mantenha uma variável maior_tamanho = 0.
+Itere de $1$ até $N$. Se o nó $i$ não foi visitado, inicie a DFS a partir dele.
+A DFS deve retornar o número total de vértices alcançados na chamada atual (somando $1$ para o nó corrente mais o retorno da DFS para seus vizinhos ainda não visitados).
+Atualize maior_tamanho = max(maior_tamanho, tamanho_atual).
+
+##### Detalhes Técnicos OBI (C++)
+
+Para $N = 10^5$ e $M = 2 \times 10^5$, garanta a otimização de I/O no main(): std::ios_base::sync_with_stdio(false); std::cin.tie(NULL);.
+A complexidade de tempo deve ser $O(N + M)$, e a de espaço $O(N + M)$.
+
+
 ### Mini-projeto_DFS
 
 Implemente uma ferramenta de "balde de tinta" simples: dado um grid de cores e um pixel clicado, repinte toda a região conectada da mesma cor.

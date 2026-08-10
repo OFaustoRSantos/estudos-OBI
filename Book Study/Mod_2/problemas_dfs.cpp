@@ -3,13 +3,15 @@ using namespace std;
 
 void ilhas();
 void grafo_direcionado();
+void tam_maior_comp_conexa();
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
 
     // ilhas();
-    grafo_direcionado();
+    //grafo_direcionado();
+    tam_maior_comp_conexa();
 
 }
 
@@ -125,7 +127,7 @@ void ilhas(){
         }
         if(matrix[temp.first][temp.second] == 1 && !rodeada_terra_vis){
             n_ilhas++;
-            cout << "pos: " << temp.first << temp.second << " adicionar uma ilha, total ilhas: " << n_ilhas << endl;
+            //cout << "pos: " << temp.first << temp.second << " adicionar uma ilha, total ilhas: " << n_ilhas << endl;
         }
         
     }
@@ -187,6 +189,9 @@ void grafo_direcionado(){
     stack<int> pilha;
     // Colocando todos os inicios na fila
     for(int i=0; i<N; i++){
+        if(recebe_aresta[i]){
+            continue;
+        }
         vis_ares[i] = {1,i};
         pilha.push(i);
 
@@ -223,8 +228,76 @@ void grafo_direcionado(){
     } else{
             cout << "N" << endl;
     }
-    
 
-    
+}
+
+// Criarei desafio pelo gemini, mais facil ter input teste e estrutura
+// Problema: Ache o tamanho da maior componente conexa.
+// Inclui no .md 
+
+/* - maior-cluster-servidores
+
+*/
+
+void tam_maior_comp_conexa(){
+    vector<vector<int>> mat_adj;
+    vector<int> visitadas;
+    int tam_caminho_max=1;
+
+
+    int N, M; // N_servidores (1 a N), logo add um para ajustar quando tiver o vetor
+
+    cin >> N; 
+    cin >> M;
+
+    visitadas.assign(N,0);
+    mat_adj.assign(N, vector<int>({}));
+
+    // bidirecional; eles estão conectados se tem um caminho entre eles;
+
+    for(int i =0; i<M;i++){
+        int A,B;
+        cin >> A >> B;
+
+        mat_adj[A].push_back(B);
+        mat_adj[B].push_back(A);
+    }
+
+    stack<int> pilha;
+    for(int i=0; i<N;i++){
+        // é inicio se só tem uma conexão e não foi visitado (é final se for)
+        if(mat_adj[i].size() == 1 && visitadas[i] == false){
+            visitadas[i] = true;
+            pilha.push(i);
+        }
+        
+        int tam_caminho_at = 1;
+
+
+        while(!pilha.empty()){
+            auto temp = pilha.top();
+            pilha.pop();
+
+            for(int j : mat_adj[temp]){
+                if(visitadas[j] == 1){
+                    
+                } //ainda não foi visitada
+                else{
+                    visitadas[j] = 1;
+                    pilha.push(j);
+                    tam_caminho_at++;
+                }
+            }
+        }
+        // quando terminar o loop, terminou o caminho daquele inicio
+
+        if(tam_caminho_at > tam_caminho_max){
+            tam_caminho_max = tam_caminho_at;
+        }
+        // EARLY STOPS
+
+    }
+
+    cout << tam_caminho_max << endl;
 
 }
