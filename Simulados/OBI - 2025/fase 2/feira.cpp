@@ -93,7 +93,7 @@ int main(){
             if(!objetos[cliente_at].empty() && sorted[cliente_at] < objetos[cliente_at].size()){
                 total_gasto+= objetos[cliente_at][sorted[cliente_at]];
                 sorted[cliente_at]++;
-                cout << "comprou item " << cliente_at << " total gasto= " << total_gasto << endl;
+                //cout << "comprou item " << cliente_at << " total gasto= " << total_gasto << endl;
                 continue;
             }
             continue;

@@ -46,6 +46,6 @@ int main(){
 // + ou - 20 min para ler tudo, + ou - 10 min para resolver esse
 
 // 1° - Distindo - feito - 100% com os exemplos
-// 2° - feira - para debugar;
+// 2° - feira - feito - 100%;
 // 3° - Placar - 100% com os exemplos
-// 4° - mania
+// 4° - mania - 100% com os exemplos
