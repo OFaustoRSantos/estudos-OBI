@@ -1,0 +1,15 @@
+P_43 - Jogo:
+
+Uso Bitwise e XOR + jogo interativo com cout.flush()
+- Bem legal, mas não sabia se valia o tempo que estava gastando para fase 3
+
+// https://noic.com.br/problemas-da-semana/problemas-da-semana-43-problema-avancado/
+
+// Chat que me ajudou a aprender conceitos problema jogo, irei refazer ele 100%
+
+- https://chatgpt.com/c/6a96d3f1-2660-83e9-a2a9-c12a0b69cc5a
+
+
+- Estudar solução jogo ladrão:
+
+// https://chatgpt.com/c/6a96e35a-2068-83e9-9697-03975ee71639

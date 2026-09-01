@@ -143,4 +143,4 @@ int main(){
 }
 
 
-// Esse desafio é muito avançado para mim ainda, não faz sentido faze-lo para fase 3;
+// Esse desafio é muito avançado para mim ainda, não faz sentido faze-lo para fase 3, eu acho, verificarei ;
