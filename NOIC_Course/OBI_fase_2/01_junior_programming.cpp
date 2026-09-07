@@ -30,14 +30,15 @@ int sum_range(){
 }
 
 // https://olimpiada.ic.unicamp.br/pratique/p1/2017/f1/cofre/
+int f1_p1_2017(){
+    int a; cin >> a;
 
-int 2017_f_1_p_1(){
     return 0;
 }
 
 // https://olimpiada.ic.unicamp.br/pratique/p2/2019/f1/soma/
 
-int 2019_f_1_p_2(){
+int f1_p2_2017(){
     return 0;
 }
 
