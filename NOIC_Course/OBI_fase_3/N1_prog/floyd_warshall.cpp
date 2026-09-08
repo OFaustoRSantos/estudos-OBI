@@ -62,3 +62,10 @@ void floyd_warshall(void)
 
     // mais eficiente que o dijkstra por vertice em grafos muito densos
 }
+
+// Problemas Floyd_warshall:
+/*
+https://codeforces.com/contest/295/problem/B
+
+https://codeforces.com/gym/101845/problem/C
+*/
