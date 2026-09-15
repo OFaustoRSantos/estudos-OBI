@@ -163,13 +163,11 @@ int main()
 		cin >> a >> b >> w;
 		mat[a][b] = mat[b][a] = w;
 	}
-    
+
     // ideia é colocar -1 em toda matrix do dp
 	memset(dp, -1, sizeof(dp));
 
 	cout << solve(1, 0) << "\n"; // começando da cidade 0
-
-
 }
 }
 
