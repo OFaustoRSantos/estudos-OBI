@@ -174,4 +174,4 @@ int main(){
     // tenho t turnos, ideia a cada
 
 
-// fiz de uma forma MUITO mais dificil
+// fiz de uma forma MUITO mais dificil 
