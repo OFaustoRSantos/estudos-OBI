@@ -160,3 +160,4 @@ distancia total = dist_root_ciclo + tamanho ciclo
 */
 
 // depois ver se a solução usa ideia acima, ganhei 0 pontos;
+ 

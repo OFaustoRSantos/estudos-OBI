@@ -71,3 +71,4 @@ int main(){
 40 pontos real está errada
 eu acho que está errada a do sistema, coloquei um tirar, para ver se conserta, mas aumentou 10 pontos,
 */
+ 
